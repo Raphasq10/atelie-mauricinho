@@ -1,0 +1,2050 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design System - Ateliê do Mauricinho 3D</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap');
+
+    /* Smooth Scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* ==========================================================================
+       BRAND DESIGN TOKENS (CSS Custom Properties)
+       ========================================================================== */
+    :root {
+      /* --- PALETA PRIMÁRIA (Cores dominantes da marca) --- */
+      --color-primary: #8B3DFF;           /* Roxo principal para botões, destaques e logotipo */
+      --color-primary-dark: #631FE0;      /* Roxo escuro para estados ativos/pressionados */
+      --color-primary-light: #A78BFA;     /* Roxo claro para destaques sutis e bordas hover */
+
+      /* --- PALETA SECUNDÁRIA (Cores de suporte) --- */
+      --color-secondary-blue: #3B82F6;    /* Azul neon para glows de iluminação traseira e contrastes frios */
+      --color-secondary-pink: #EC4899;    /* Rosa/Magenta neon para destaques vibrantes secundários */
+      
+      /* --- CORES DE ACENTO/DESTAQUE (Pontuais) --- */
+      --color-accent: #F59E0B;            /* Laranja/Amarelo quente (botão Add to Cart, banner inferior) */
+      --color-accent-hover: #D97706;      /* Laranja hover para botões e links de conversão */
+      --color-accent-light: #FEF08A;      /* Amarelo claro para ícones de avaliação (estrelas) */
+
+      /* --- NEUTROS (Cinzas e tons escuros) --- */
+      --color-neutral-100: #FFFFFF;       /* Texto primário, títulos principais e botões de destaque */
+      --color-neutral-200: #E2E8F0;       /* Subtítulos e informações secundárias legíveis */
+      --color-neutral-300: #9B99A9;       /* Texto do corpo principal (tom lavanda acinzentado) */
+      --color-neutral-400: #626070;       /* Rótulos secundários, placeholders e textos desativados */
+      --color-neutral-700: #1A1827;       /* Fundo de caixas elevadas, tooltips ou botões em hover */
+      --color-neutral-800: #12111A;       /* Fundo padrão para cards de produtos e superfícies */
+      --color-neutral-900: #09080F;       /* Fundo principal profundo da página */
+
+      /* --- CORES FUNCIONAIS --- */
+      --color-success: #10B981;           /* Verde de sucesso (status ativo, confirmação de envio) */
+      --color-error: #EF4444;             /* Vermelho de erro ou cancelamento */
+      --color-warning: #F59E0B;           /* Alertas e atenção */
+
+      /* --- BACKGROUNDS --- */
+      --color-bg-default: #09080F;        /* Fundo padrão do site */
+      --color-bg-card: #12111A;           /* Fundo de cards padrão */
+      --color-bg-footer: #06050A;         /* Fundo do rodapé */
+
+      /* --- GRADIENTES --- */
+      --gradient-hero-glow: radial-gradient(circle, rgba(139, 61, 255, 0.15) 0%, rgba(59, 130, 246, 0.05) 60%, rgba(9, 8, 15, 0) 100%);
+      --gradient-accent-banner: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+      --gradient-card-overlay: linear-gradient(180deg, rgba(18, 17, 26, 0) 40%, rgba(9, 8, 15, 0.95) 100%);
+      --gradient-text-neon: linear-gradient(90deg, #FFFFFF 0%, #A78BFA 100%);
+
+      /* --- TIPOGRAFIA TOKENS --- */
+      --font-display: 'Outfit', sans-serif;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+
+      /* Tamanhos, Pesos, Alturas e Espaçamentos da Escala */
+      --text-h1-size: 3.5rem;             /* 56px (Hero Headings grandes) */
+      --text-h1-line-height: 1.15;
+      --text-h1-weight: 800;
+      --text-h1-letter-spacing: -0.02em;
+
+      --text-h2-size: 2.25rem;            /* 36px (Títulos de seções) */
+      --text-h2-line-height: 1.2;
+      --text-h2-weight: 700;
+      --text-h2-letter-spacing: -0.015em;
+
+      --text-h3-size: 1.5rem;             /* 24px (Subtítulos proeminentes e títulos de cards) */
+      --text-h3-line-height: 1.3;
+      --text-h3-weight: 600;
+      --text-h3-letter-spacing: -0.01em;
+
+      --text-h4-size: 1.125rem;           /* 18px (Cabeçalhos de controle e opções do catálogo) */
+      --text-h4-line-height: 1.4;
+      --text-h4-weight: 600;
+      --text-h4-letter-spacing: normal;
+
+      --text-body-size: 1rem;             /* 16px (Texto de leitura longa) */
+      --text-body-line-height: 1.6;
+      --text-body-weight: 400;
+
+      --text-small-size: 0.875rem;        /* 14px (Meta descrições, labels dos cards, etc) */
+      --text-small-line-height: 1.5;
+      --text-small-weight: 400;
+
+      --text-eyebrow-size: 0.75rem;       /* 12px (Sobre-título em letras maiúsculas) */
+      --text-eyebrow-line-height: 1.5;
+      --text-eyebrow-weight: 700;
+      --text-eyebrow-letter-spacing: 0.15em;
+
+      /* --- ESPAÇAMENTO TOKENS (Base 8px/4px) --- */
+      --space-2xs: 0.25rem;               /* 4px (micro-ajustes, badges, margem interna mínima) */
+      --space-xs: 0.5rem;                 /* 8px (distância de labels para inputs, pequenos textos) */
+      --space-sm: 0.75rem;                /* 12px (padding vertical de botões, espaços em lista) */
+      --space-md: 1rem;                   /* 16px (padding interno de cards padrão, gaps pequenos) */
+      --space-lg: 1.5rem;                 /* 24px (distanciamento interno médio de containers) */
+      --space-xl: 2rem;                   /* 32px (espaçamento entre títulos e parágrafos) */
+      --space-2xl: 3rem;                  /* 48px (gaps grandes, divisórias internas de seções) */
+      --space-3xl: 4rem;                  /* 64px (margem superior/inferior de títulos de seção) */
+      --space-section: 6rem;              /* 96px (ritmo e respiro vertical principal entre seções) */
+
+      /* --- GRID & LAYOUT TOKENS --- */
+      --container-max: 75rem;             /* 1200px (largura máxima global do conteúdo) */
+      --container-narrow: 50rem;          /* 800px (usado para leitura de texto focado e formulários) */
+      --container-padding-desktop: 2.5rem; /* 40px (padding lateral em telas grandes) */
+      --container-padding-tablet: 1.5rem;  /* 24px (padding lateral em tablets) */
+      --container-padding-mobile: 1rem;    /* 16px (padding lateral em celulares) */
+
+      --grid-columns: 12;                 /* Sistema básico de 12 colunas da referência */
+      --grid-gutter: 1.5rem;              /* 24px de espaçamento interno entre colunas (--space-lg) */
+      
+      /* Breakpoints (Documentados no CSS) */
+      --breakpoint-sm: 40rem;             /* 640px */
+      --breakpoint-md: 48rem;             /* 768px */
+      --breakpoint-lg: 64rem;             /* 1024px */
+      --breakpoint-xl: 80rem;             /* 1280px */
+
+      /* --- COMPONENT TOKENS (Bordas, Radius, Sombras) --- */
+      --radius-sm: 0.375rem;              /* 6px (tags, badges, pequenos botões) */
+      --radius-md: 0.625rem;              /* 10px (inputs, botões padrão, cantos de imagens internas) */
+      --radius-lg: 1rem;                  /* 16px (cards de produtos, painéis flutuantes, banners) */
+      --radius-pill: 9999px;              /* Botões de ação em formato de pílula */
+
+      --shadow-subtle: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+      --shadow-elevated: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+      --shadow-glow-purple: 0 0 20px rgba(139, 61, 255, 0.3); /* Glow roxo neon para botões e cards ativos */
+      --shadow-glow-orange: 0 0 20px rgba(245, 158, 11, 0.25); /* Glow amarelo/laranja */
+
+      --border-width-default: 1px;
+      --border-style-default: solid;
+
+      /* --- EFEITOS E TEXTURAS TOKENS --- */
+      --blur-glass: blur(12px);           /* Efeito vidro fosco (glassmorphism) */
+      --glass-bg: rgba(18, 17, 26, 0.7);  /* Fundo translúcido para o vidro */
+      --glass-border: 1px solid rgba(255, 255, 255, 0.08); /* Borda fina para destacar o vidro */
+
+      --transition-fast: 0.15s ease;      /* Easing básico para botões rápidos e hovers de texto */
+      --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Transição para cards, menus e layout */
+      --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);   /* Animações e revelações lentas */
+
+      --bg-pattern-dots: radial-gradient(rgba(139, 61, 255, 0.1) 1px, transparent 1px) 0 0 / 20px 20px; /* Grade sutil de pontos roxos */
+      
+      --filter-hover-bright: brightness(1.08) saturate(1.1); /* Acento visual em hover de imagens */
+      --overlay-dark: rgba(9, 8, 15, 0.65); /* Máscara padrão para sobreposição de fundos */
+    }
+
+    /* ==========================================================================
+       STYLE GUIDE LAYOUT (Tipografia Neutra)
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #0c0b12;
+      color: #cbd5e1;
+      line-height: 1.5;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* ==========================================================================
+       BARRA DE NAVEGAÇÃO STICKY (ÍNDICE FIXED/STICKY)
+       ========================================================================== */
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(12, 11, 18, 0.85);
+      backdrop-filter: var(--blur-glass);
+      border-bottom: 1px solid #222135;
+      padding: 1rem 2rem;
+      margin: -2rem -2rem 2.5rem -2rem; /* Anula o padding do body */
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    @media (min-width: 768px) {
+      .sticky-nav {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .nav-brand-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .sticky-links {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .sticky-link {
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #94a3b8;
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      border: 1px solid transparent;
+    }
+
+    .sticky-link:hover {
+      color: white;
+      background: rgba(255, 255, 255, 0.05);
+      border-color: #222135;
+    }
+
+    /* Headers Internos */
+    header {
+      padding-bottom: 1.5rem;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid #222135;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: #94a3b8;
+      font-size: 0.95rem;
+    }
+
+    /* Seções do Style Guide */
+    .ds-colors, .ds-typography, .ds-spacing, .ds-layout, .ds-components, .ds-effects {
+      background: #100f1a;
+      border: 1px solid #222135;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      scroll-margin-top: 100px; /* Previne que a barra sticky oculte o título */
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      color: #f8fafc;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #222135;
+    }
+
+    .section-desc {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      margin-bottom: 2.5rem;
+      max-width: 900px;
+    }
+
+    /* --- EFEITOS E TEXTURAS DETALHES --- */
+    .effects-sub-section {
+      margin-bottom: 3.5rem;
+    }
+
+    /* Glassmorphism Demo */
+    .glass-demo-bg {
+      height: 220px;
+      background: radial-gradient(circle at 20% 30%, var(--color-primary) 0%, var(--color-secondary-blue) 40%, var(--color-secondary-pink) 80%);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glass-card-preview {
+      background: var(--glass-bg);
+      backdrop-filter: var(--blur-glass);
+      -webkit-backdrop-filter: var(--blur-glass);
+      border: var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: var(--shadow-elevated);
+    }
+
+    /* Pattern Demo */
+    .pattern-demo-box {
+      background-color: var(--color-bg-default);
+      background-image: var(--bg-pattern-dots);
+      height: 150px;
+      border-radius: var(--radius-lg);
+      border: 1px solid #222135;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    /* Overlays and Filters Demo */
+    .filter-demo-flex {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    @media (min-width: 768px) {
+      .filter-demo-flex {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .filter-demo-card {
+      background: #161522;
+      border: 1px solid #222135;
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+    }
+
+    .image-container-overlay {
+      position: relative;
+      height: 180px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: #1e1b2f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .image-container-overlay::before {
+      content: '🐾 Imagem de Fundo (3D Print)';
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--color-primary-light);
+      transition: filter var(--transition-normal);
+    }
+
+    .image-container-overlay:hover::before {
+      filter: var(--filter-hover-bright);
+    }
+
+    .overlay-mask {
+      position: absolute;
+      inset: 0;
+      background: var(--gradient-card-overlay);
+      pointer-events: none;
+    }
+
+    /* Transition Test buttons */
+    .transition-demo-flex {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      background: #161522;
+      border: 1px solid #222135;
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+    }
+
+    .transition-btn {
+      background: var(--color-bg-default);
+      color: white;
+      border: 1px solid var(--color-border-accent);
+      padding: 0.8rem 1.5rem;
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      cursor: pointer;
+      flex: 1;
+      min-width: 200px;
+      text-align: center;
+    }
+
+    .transition-btn.t-fast {
+      transition: all var(--transition-fast);
+    }
+    .transition-btn.t-fast:hover {
+      background: var(--color-primary);
+      border-color: var(--color-primary-light);
+      box-shadow: var(--shadow-glow-purple);
+      transform: scale(1.03);
+    }
+
+    .transition-btn.t-normal {
+      transition: all var(--transition-normal);
+    }
+    .transition-btn.t-normal:hover {
+      background: var(--color-primary);
+      border-color: var(--color-primary-light);
+      box-shadow: var(--shadow-glow-purple);
+      transform: scale(1.04);
+    }
+
+    .transition-btn.t-slow {
+      transition: all var(--transition-slow);
+    }
+    .transition-btn.t-slow:hover {
+      background: var(--color-primary);
+      border-color: var(--color-primary-light);
+      box-shadow: var(--shadow-glow-purple);
+      transform: scale(1.05);
+    }
+
+    /* --- ESTILOS DE COMPONENTES (MANTIDO) --- */
+    .comp-sub-section {
+      margin-bottom: 3.5rem;
+    }
+
+    .radius-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .radius-card {
+      background: #161522;
+      border: 1px solid #222135;
+      padding: 1.5rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .radius-preview {
+      background: var(--color-primary);
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1rem;
+    }
+
+    .shadow-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+
+    .shadow-card-preview {
+      background: #161522;
+      border: 1px solid #222135;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      border-radius: var(--radius-lg);
+    }
+
+    .buttons-demo-flex {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      align-items: center;
+      background: #161522;
+      border: 1px solid #222135;
+      padding: 2rem 1.5rem;
+      border-radius: var(--radius-lg);
+    }
+
+    .btn-ds {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-ds-primary {
+      background: var(--color-primary);
+      color: var(--color-neutral-100);
+      padding: 0.8rem 1.8rem;
+      border-radius: var(--radius-pill);
+    }
+    .btn-ds-primary:hover {
+      background: var(--color-primary-hover);
+      box-shadow: var(--shadow-glow-purple);
+      transform: translateY(-1px);
+    }
+
+    .btn-ds-secondary {
+      background: transparent;
+      color: var(--color-neutral-100);
+      border: 1.5px solid var(--color-neutral-100);
+      padding: 0.8rem 1.8rem;
+      border-radius: var(--radius-pill);
+    }
+    .btn-ds-secondary:hover {
+      background: var(--color-neutral-100);
+      color: var(--color-neutral-900);
+      transform: translateY(-1px);
+    }
+
+    .btn-ds-accent {
+      background: var(--color-accent);
+      color: var(--color-neutral-900);
+      padding: 0.7rem 1.5rem;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-subtle);
+    }
+    .btn-ds-accent:hover {
+      background: var(--color-accent-hover);
+      box-shadow: var(--shadow-glow-orange);
+      transform: translateY(-1px);
+    }
+
+    .btn-ds-icon {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid #222135;
+      color: white;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+    }
+    .btn-ds-icon:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: var(--color-primary-light);
+    }
+
+    .cards-demo-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+
+    .product-card-mockup {
+      background: var(--color-neutral-800);
+      border: var(--border-width-default) var(--border-style-default) var(--color-border-accent);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow-subtle);
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .product-card-mockup:hover {
+      border-color: var(--color-border-glow);
+      transform: translateY(-4px);
+    }
+
+    .card-img-mockup {
+      height: 200px;
+      background: #1d1b2f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-neutral-400);
+      font-size: 0.9rem;
+      position: relative;
+    }
+
+    .card-img-mockup::before {
+      content: '🐾 Mockup Peça 3D';
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--color-primary-light);
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--color-primary);
+      color: white;
+      font-size: 0.72rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--radius-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .card-info {
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .card-tag-row {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .card-tag {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid #222135;
+      padding: 0.2rem 0.5rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.72rem;
+      color: var(--color-neutral-300);
+      font-weight: 500;
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: var(--text-h3-size);
+      font-weight: var(--text-h3-weight);
+      color: var(--color-neutral-100);
+      margin-bottom: 0.5rem;
+    }
+
+    .card-desc {
+      font-family: var(--font-body);
+      font-size: var(--text-small-size);
+      color: var(--color-neutral-300);
+      line-height: 1.4;
+      margin-bottom: 1.2rem;
+      flex: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--color-border-subtle);
+      padding-top: 1rem;
+      margin-top: auto;
+    }
+
+    .card-stars {
+      color: var(--color-accent);
+      font-size: 0.9rem;
+    }
+
+    .input-ds {
+      background: var(--color-bg-default);
+      border: 1px solid var(--color-border-accent);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--color-neutral-100);
+      width: 100%;
+      max-width: 340px;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .input-ds:focus {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 10px rgba(139, 61, 255, 0.25);
+    }
+
+    /* --- ESTILOS GERAIS DE GRID & LAYOUT (MANTIDO) --- */
+    .layout-sub-section {
+      margin-bottom: 3.5rem;
+    }
+
+    .container-visualizer {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .visual-container {
+      background: #161522;
+      border: 1px solid #222135;
+      border-radius: 8px;
+      padding: 1.5rem;
+      position: relative;
+    }
+
+    .visual-container-bar {
+      background: rgba(139, 61, 255, 0.1);
+      border: 2px dashed var(--color-primary);
+      border-radius: 6px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-primary-light);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+
+    .grid-visualizer-box {
+      background: #161522;
+      border: 1px solid #222135;
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+
+    .grid-demo {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: var(--grid-gutter);
+      background: #09080f;
+      padding: 1rem;
+      border-radius: 6px;
+      border: 1px solid #222135;
+    }
+
+    .grid-column-item {
+      background: rgba(139, 61, 255, 0.15);
+      border: 1px solid rgba(139, 61, 255, 0.4);
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--color-primary-light);
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    .ds-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+
+    .ds-table th, .ds-table td {
+      padding: 1rem;
+      border-bottom: 1px solid #222135;
+    }
+
+    .ds-table th {
+      background: #161522;
+      color: #cbd5e1;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      font-size: 0.8rem;
+    }
+
+    .ds-table td {
+      color: #94a3b8;
+    }
+
+    .ds-table tr:hover td {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .table-code {
+      font-family: var(--font-mono);
+      color: #38bdf8;
+      font-weight: bold;
+    }
+
+    /* --- ESTILOS GERAIS DE ESPAÇAMENTO (MANTIDO) --- */
+    .spacing-sub-section {
+      margin-bottom: 3.5rem;
+    }
+
+    .spacing-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .spacing-item {
+      display: grid;
+      grid-template-columns: 140px 1fr 140px;
+      align-items: center;
+      gap: 1.5rem;
+      background: #161522;
+      border: 1px solid #222135;
+      padding: 0.8rem 1.2rem;
+      border-radius: 8px;
+    }
+
+    .spacing-label {
+      font-size: 0.8rem;
+      color: #38bdf8;
+      font-family: var(--font-mono);
+      font-weight: bold;
+    }
+
+    .spacing-bar-container {
+      background: #09080f;
+      border: 1px solid #222135;
+      border-radius: 4px;
+      height: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .spacing-bar {
+      background: var(--color-primary);
+      height: 100%;
+      border-radius: 3px;
+    }
+
+    .spacing-value {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      text-align: right;
+    }
+
+    .rhythm-card {
+      background: #161522;
+      border: 1px solid #222135;
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+
+    .rhythm-box {
+      border: 1px dashed #4b4869;
+      background: #09080f;
+      padding: 1rem;
+      border-radius: 6px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+
+    .rhythm-divider {
+      background: rgba(139, 61, 255, 0.15);
+      border-top: 1px dashed var(--color-primary);
+      border-bottom: 1px dashed var(--color-primary);
+      color: var(--color-primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .practical-demo {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .demo-card {
+      background: var(--color-neutral-800);
+      border: 1px solid var(--color-border-accent);
+      border-radius: 10px;
+    }
+
+    .demo-heading {
+      font-family: var(--font-display);
+      font-size: var(--text-h3-size);
+      font-weight: var(--text-h3-weight);
+      color: var(--color-neutral-100);
+    }
+
+    .demo-text {
+      font-family: var(--font-body);
+      font-size: var(--text-body-size);
+      color: var(--color-neutral-300);
+    }
+
+    /* --- ESTILOS GERAIS DE TIPOGRAFIA (MANTIDO) --- */
+    .typo-sub-section {
+      margin-bottom: 3.5rem;
+    }
+
+    .font-families-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    @media (min-width: 768px) {
+      .font-families-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .font-family-card {
+      background: #161522;
+      border: 1px solid #222135;
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+
+    .font-family-label {
+      font-size: 0.8rem;
+      color: #38bdf8;
+      font-family: var(--font-mono);
+      margin-bottom: 0.8rem;
+      font-weight: bold;
+    }
+
+    .font-family-preview {
+      font-size: 1.4rem;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+
+    .font-family-stack {
+      font-size: 0.78rem;
+      color: #94a3b8;
+      font-family: var(--font-mono);
+    }
+
+    .typo-scale-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .typo-scale-item {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #222135;
+    }
+    @media (min-width: 768px) {
+      .typo-scale-item {
+        grid-template-columns: 120px 1fr 280px;
+        align-items: center;
+        gap: 2rem;
+      }
+    }
+
+    .typo-scale-label {
+      font-size: 0.8rem;
+      color: #38bdf8;
+      font-family: var(--font-mono);
+      font-weight: bold;
+    }
+
+    .typo-scale-render {
+      overflow-x: auto;
+    }
+
+    .typo-scale-meta {
+      background: #09080f;
+      border: 1px solid #222135;
+      border-radius: 6px;
+      padding: 0.8rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: #cbd5e1;
+    }
+
+    .typo-meta-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.3rem;
+    }
+
+    .typo-meta-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .typo-meta-val {
+      color: #a78bfa;
+    }
+
+    .typo-special-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    @media (min-width: 768px) {
+      .typo-special-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .special-item {
+      background: #161522;
+      border: 1px solid #222135;
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+
+    .special-preview-link {
+      display: inline-block;
+      color: var(--color-primary);
+      text-decoration: none;
+      font-family: var(--font-body);
+      font-weight: 500;
+      transition: color 0.2s ease, text-decoration 0.2s ease;
+      margin-right: 1.5rem;
+    }
+    .special-preview-link:hover {
+      color: var(--color-primary-hover);
+      text-decoration: underline;
+    }
+
+    .special-preview-eyebrow {
+      font-family: var(--font-display);
+      font-size: var(--text-eyebrow-size);
+      font-weight: var(--text-eyebrow-weight);
+      line-height: var(--text-eyebrow-line-height);
+      letter-spacing: var(--text-eyebrow-letter-spacing);
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    /* --- ESTILOS DE CORES (MANTIDO) --- */
+    .color-category {
+      margin-bottom: 3rem;
+    }
+
+    .category-title {
+      font-size: 0.95rem;
+      color: #94a3b8;
+      margin-bottom: 1.2rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      border-left: 3px solid var(--color-primary);
+      padding-left: 0.5rem;
+    }
+
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .color-card {
+      background: #161522;
+      border: 1px solid #222135;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .color-card:hover {
+      transform: translateY(-2px);
+      border-color: #3b3a54;
+    }
+
+    .color-preview-box {
+      height: 120px;
+      position: relative;
+    }
+
+    .color-preview-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: inherit;
+    }
+
+    .color-details {
+      padding: 1.2rem;
+    }
+
+    .token-name {
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #38bdf8;
+      font-weight: bold;
+      margin-bottom: 0.4rem;
+    }
+
+    .token-value {
+      font-size: 0.8rem;
+      color: #cbd5e1;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+    }
+
+    .token-desc {
+      font-size: 0.78rem;
+      color: #94a3b8;
+      line-height: 1.4;
+      border-top: 1px dashed #222135;
+      padding-top: 0.6rem;
+    }
+
+    .gradient-card {
+      grid-column: span 1;
+    }
+    @media (min-width: 768px) {
+      .gradient-card {
+        grid-column: span 2;
+      }
+    }
+
+    .gradient-preview {
+      height: 140px;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+    }
+
+    .gradient-code {
+      background: #09080f;
+      padding: 0.8rem;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 0.78rem;
+      color: #a78bfa;
+      border: 1px solid #222135;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       ÍNDICE DE NAVEGAÇÃO FIXED/STICKY (Adicionado no Topo do Body)
+       ========================================================================== -->
+  <nav class="sticky-nav">
+    <div class="nav-brand-title">
+      🐾 Ateliê do Mauricinho 3D <span style="font-size: 0.75rem; background: var(--color-primary); color: white; padding: 0.1rem 0.4rem; border-radius: 4px;">STYLE GUIDE</span>
+    </div>
+    <div class="sticky-links">
+      <a href="#step-colors" class="sticky-link">Cores</a>
+      <a href="#step-typography" class="sticky-link">Tipografia</a>
+      <a href="#step-spacing" class="sticky-link">Espaçamento</a>
+      <a href="#step-layout" class="sticky-link">Layout & Grid</a>
+      <a href="#step-components" class="sticky-link">Componentes</a>
+      <a href="#step-effects" class="sticky-link">Efeitos</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <header style="margin-top: 1rem;">
+      <h1>Ateliê do Mauricinho 3D — Design System</h1>
+      <p class="subtitle">Guia de Estilo e Especificação de Tokens de Design obtidos via Engenharia Reversa</p>
+    </header>
+
+    <!-- ETAPA 1: CORES (MANTIDO) -->
+    <section class="ds-colors" id="step-colors">
+      <h2 class="section-title">Cores</h2>
+      <p class="section-desc">
+        Abaixo estão documentadas as cores extraídas a partir da análise detalhada da interface de referência do site <strong>VORNEA</strong>. As variáveis são organizadas por categorias semânticas no escopo <code>:root</code> do CSS.
+      </p>
+
+      <!-- Paleta Primária -->
+      <div class="color-category">
+        <h3 class="category-title">Paleta Primária (Identidade da Marca)</h3>
+        <div class="color-grid">
+          <div class="color-card">
+            <div class="color-preview-box" style="background-color: var(--color-primary);"></div>
+            <div class="color-details">
+              <div class="token-name">--color-primary</div>
+              <div class="token-value">#8B3DFF</div>
+              <div class="token-desc"><strong>Uso:</strong> Logotipo principal, botões primários de ação (ex: "Join Us", "Sign Up") e acentos ativos de navegação.</div>
+            </div>
+          </div>
+
+          <div class="color-card">
+            <div class="color-preview-box" style="background-color: var(--color-primary-dark);"></div>
+            <div class="color-details">
+              <div class="token-name">--color-primary-dark</div>
+              <div class="token-value">#631FE0</div>
+              <div class="token-desc"><strong>Uso:</strong> Estados de hover ativos e click do botão primário. Oferece contraste adequado.</div>
+            </div>
+          </div>
+
+          <div class="color-card">
+            <div class="color-preview-box" style="background-color: var(--color-primary-light);"></div>
+            <div class="color-details">
+              <div class="token-name">--color-primary-light</div>
+              <div class="token-value">#A78BFA</div>
+              <div class="token-desc"><strong>Uso:</strong> Bordas sutis de cards em hover e extremidade de textos com gradientes.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paleta Secundária -->
+      <div class="color-category">
+        <h3 class="category-title">Paleta Secundária (Cores de Suporte)</h3>
+        <div class="color-grid">
+          <div class="color-card">
+            <div class="color-preview-box" style="background-color: var(--color-secondary-blue);"></div>
+            <div class="color-details">
+              <div class="token-name">--color-secondary-blue</div>
+              <div class="token-value">#3B82F6</div>
+              <div class="token-desc"><strong>Uso:</strong> Iluminação de fundo (glow) na seção hero e acentos cibernéticos frios nos cards secundários.</div>
+            </div>
+          </div>
+
+          <div class="color-card">
+            <div class="color-preview-box" style="background-color: var(--color-secondary-pink);"></div>
+            <div class="color-details">
+              <div class="token-name">--color-secondary-pink</div>
+              <div class="token-value">#EC4899</div>
+              <div class="token-desc"><strong>Uso:</strong> Toques sutis de iluminação magenta/neon na imagem do topo e nas transições de cor do banner.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Acentos e Destaque -->
+      <div class="color-category">
+        <h3 class="category-title">Cores de Acento (Pontuais)</h3>
+        <div class="color-grid">
+          <div class="color-card">
+            <div class="color-preview-box" style="background-color: var(--color-accent);"></div>
+            <div class="color-details">
+              <div class="token-name">--color-accent</div>
+              <div class="token-value">#F59E0B</div>
+              <div class="token-desc"><strong>Uso:</strong> Banner promocional inferior (VORNEA App), botões de conversão secundários ("Add to Cart") e estrelas de avaliação.</div>
+            </div>
+          </div>
+
+          <div class="color-card">
+            <div class="color-preview-box" style="background-color: var(--color-accent-hover);"></div>
+            <div class="color-details">
+              <div class="token-name">--color-accent-hover</div>
+              <div class="token-value">#D97706</div>
+              <div class="token-desc"><strong>Uso:</strong> Hover dos botões baseados na cor de acento.</div>
+            </div>
+          </div>
+
+          <div class="color-card">
+            <div class="color-preview-box" style="background-color: var(--color-accent-light);"></div>
+            <div class="color-details">
+              <div class="token-name">--color-accent-light</div>
+              <div class="token-value">#FEF08A</div>
+              <div class="token-desc"><strong>Uso:</strong> Detalhes de texto sobre fundos de contraste escuro.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Neutros -->
+      <div class="color-category">
+        <h3 class="category-title">Neutros (Escala de Cinzas & Escuros)</h3>
+        <div class="color-grid">
+          <div class="color-card">
+            <div class="color-preview-box" style="background-color: var(--color-neutral-100);"></div>
+            <div class="color-details">
+              <div class="token-name">--color-neutral-100</div>
+              <div class="token-value">#FFFFFF</div>
+              <div class="token-desc"><strong>Uso:</strong> Texto principal e ícones de alto contraste.</div>
+            </div>
+          </div>
+
+          <div class="color-card">
+            <div class="color-preview-box" style="background-color: var(--color-neutral-200);"></div>
+            <div class="color-details">
+              <div class="token-name">--color-neutral-200</div>
+              <div class="token-value">#E2E8F0</div>
+              <div class="token-desc"><strong>Uso:</strong> Títulos secundários e subcabeçalhos.</div>
+            </div>
+          </div>
+
+          <div class="color-card">
+            <div class="color-preview-box" style="background-color: var(--color-neutral-300);"></div>
+            <div class="color-details">
+              <div class="token-name">--color-neutral-300</div>
+              <div class="token-value">#9B99A9</div>
+              <div class="token-desc"><strong>Uso:</strong> Corpo de texto da página e descrições gerais.</div>
+            </div>
+          </div>
+
+          <div class="color-card">
+            <div class="color-preview-box" style="background-color: var(--color-neutral-400);"></div>
+            <div class="color-details">
+              <div class="token-name">--color-neutral-400</div>
+              <div class="token-value">#626070</div>
+              <div class="token-desc"><strong>Uso:</strong> Rodapé secundário, textos de copyright, e rótulos de status inativo.</div>
+            </div>
+          </div>
+
+          <div class="color-card">
+            <div class="color-preview-box" style="background-color: var(--color-neutral-700);"></div>
+            <div class="color-details">
+              <div class="token-name">--color-neutral-700</div>
+              <div class="token-value">#1A1827</div>
+              <div class="token-desc"><strong>Uso:</strong> Hover de botões secundários escuros e tooltips.</div>
+            </div>
+          </div>
+
+          <div class="color-card">
+            <div class="color-preview-box" style="background-color: var(--color-neutral-800);"></div>
+            <div class="color-details">
+              <div class="token-name">--color-neutral-800</div>
+              <div class="token-value">#12111A</div>
+              <div class="token-desc"><strong>Uso:</strong> Fundo principal dos cards de produtos e painéis internos.</div>
+            </div>
+          </div>
+
+          <div class="color-card">
+            <div class="color-preview-box" style="background-color: var(--color-neutral-900);"></div>
+            <div class="color-details">
+              <div class="token-name">--color-neutral-900</div>
+              <div class="token-value">#09080F</div>
+              <div class="token-desc"><strong>Uso:</strong> Fundo global do site.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cores Funcionais -->
+      <div class="color-category">
+        <h3 class="category-title">Cores Funcionais</h3>
+        <div class="color-grid">
+          <div class="color-card">
+            <div class="color-preview-box" style="background-color: var(--color-success);"></div>
+            <div class="color-details">
+              <div class="token-name">--color-success</div>
+              <div class="token-value">#10B981</div>
+              <div class="token-desc"><strong>Uso:</strong> Mensagens de sucesso no formulário e status de envio ok.</div>
+            </div>
+          </div>
+
+          <div class="color-card">
+            <div class="color-preview-box" style="background-color: var(--color-error);"></div>
+            <div class="color-details">
+              <div class="token-name">--color-error</div>
+              <div class="token-value">#EF4444</div>
+              <div class="token-desc"><strong>Uso:</strong> Validações de erro e inputs incorretos.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gradientes -->
+      <div class="color-category">
+        <h3 class="category-title">Gradientes da Referência</h3>
+        <div class="color-grid">
+          <div class="color-card gradient-card">
+            <div class="gradient-preview" style="background: var(--gradient-hero-glow);"></div>
+            <div class="color-details">
+              <div class="token-name">--gradient-hero-glow</div>
+              <div class="token-desc" style="margin-bottom: 0.5rem;">
+                <strong>Uso:</strong> Efeito radial no fundo da seção Hero. Cria uma aura azul e roxa suave que ilumina a foto principal.
+              </div>
+              <pre class="gradient-code">radial-gradient(circle, rgba(139, 61, 255, 0.15) 0%, rgba(59, 130, 246, 0.05) 60%, rgba(9, 8, 15, 0) 100%)</pre>
+            </div>
+          </div>
+
+          <div class="color-card gradient-card">
+            <div class="gradient-preview" style="background: var(--gradient-accent-banner);"></div>
+            <div class="color-details">
+              <div class="token-name">--gradient-accent-banner</div>
+              <div class="token-desc" style="margin-bottom: 0.5rem;">
+                <strong>Uso:</strong> Plano de fundo do banner de download de aplicativo. Cor muito vibrante para romper a sobriedade escura da página.
+              </div>
+              <pre class="gradient-code">linear-gradient(135deg, #F59E0B 0%, #D97706 100%)</pre>
+            </div>
+          </div>
+
+          <div class="color-card gradient-card">
+            <div class="gradient-preview" style="background: var(--gradient-card-overlay);"></div>
+            <div class="color-details">
+              <div class="token-name">--gradient-card-overlay</div>
+              <div class="token-desc" style="margin-bottom: 0.5rem;">
+                <strong>Uso:</strong> Máscara escura aplicada no rodapé dos cards de produtos para assegurar o contraste legível dos títulos brancos.
+              </div>
+              <pre class="gradient-code">linear-gradient(180deg, rgba(18, 17, 26, 0) 40%, rgba(9, 8, 15, 0.95) 100%)</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ETAPA 2: TIPOGRAFIA (MANTIDO) -->
+    <section class="ds-typography" id="step-typography">
+      <h2 class="section-title">Tipografia</h2>
+      <p class="section-desc">
+        Mapeamento da escala tipográfica e das famílias de fontes utilizadas. A tipografia da marca equilibra a legibilidade do corpo de texto com o apelo visual geométrico e moderno dos títulos.
+      </p>
+
+      <!-- Font Families -->
+      <div class="typo-sub-section">
+        <h3 class="sub-section-title">Font Families (Famílias de Fontes)</h3>
+        <div class="font-families-grid">
+          <div class="font-family-card">
+            <div class="font-family-label">--font-display</div>
+            <div class="font-family-preview" style="font-family: var(--font-display); font-weight: 700;">
+              Outfit (Títulos & Destaques)
+            </div>
+            <p style="font-family: var(--font-display); font-size: 0.9rem; color: var(--color-neutral-300); margin-bottom: 0.8rem;">
+              The quick brown fox jumps over the lazy dog. 1234567890
+            </p>
+            <div class="font-family-stack">Stack: 'Outfit', sans-serif</div>
+          </div>
+
+          <div class="font-family-card">
+            <div class="font-family-label">--font-body</div>
+            <div class="font-family-preview" style="font-family: var(--font-body); font-weight: 400;">
+              Inter (Corpo & Textos)
+            </div>
+            <p style="font-family: var(--font-body); font-size: 0.9rem; color: var(--color-neutral-300); margin-bottom: 0.8rem;">
+              The quick brown fox jumps over the lazy dog. 1234567890
+            </p>
+            <div class="font-family-stack">Stack: 'Inter', system-ui, -apple-system, sans-serif</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Escala Tipográfica -->
+      <div class="typo-sub-section">
+        <h3 class="sub-section-title">Escala Tipográfica</h3>
+        <div class="typo-scale-list">
+          <!-- H1 -->
+          <div class="typo-scale-item">
+            <div class="typo-scale-label">H1 (Hero Heading)</div>
+            <div class="typo-scale-render">
+              <h1 style="font-family: var(--font-display); font-size: var(--text-h1-size); font-weight: var(--text-h1-weight); line-height: var(--text-h1-line-height); letter-spacing: var(--text-h1-letter-spacing); color: var(--color-neutral-100);">
+                Eternize seu pet
+              </h1>
+            </div>
+            <div class="typo-scale-meta">
+              <div class="typo-meta-row"><span>font-size:</span> <span class="typo-meta-val">3.5rem (56px)</span></div>
+              <div class="typo-meta-row"><span>weight:</span> <span class="typo-meta-val">800 (ExtraBold)</span></div>
+              <div class="typo-meta-row"><span>line-height:</span> <span class="typo-meta-val">1.15</span></div>
+              <div class="typo-meta-row"><span>letter-spacing:</span> <span class="typo-meta-val">-0.02em</span></div>
+            </div>
+          </div>
+
+          <!-- H2 -->
+          <div class="typo-scale-item">
+            <div class="typo-scale-label">H2 (Section Title)</div>
+            <div class="typo-scale-render">
+              <h2 style="font-family: var(--font-display); font-size: var(--text-h2-size); font-weight: var(--text-h2-weight); line-height: var(--text-h2-line-height); letter-spacing: var(--text-h2-letter-spacing); color: var(--color-neutral-100);">
+                O coração por trás
+              </h2>
+            </div>
+            <div class="typo-scale-meta">
+              <div class="typo-meta-row"><span>font-size:</span> <span class="typo-meta-val">2.25rem (36px)</span></div>
+              <div class="typo-meta-row"><span>weight:</span> <span class="typo-meta-val">700 (Bold)</span></div>
+              <div class="typo-meta-row"><span>line-height:</span> <span class="typo-meta-val">1.2</span></div>
+              <div class="typo-meta-row"><span>letter-spacing:</span> <span class="typo-meta-val">-0.015em</span></div>
+            </div>
+          </div>
+
+          <!-- H3 -->
+          <div class="typo-scale-item">
+            <div class="typo-scale-label">H3 (Card Title)</div>
+            <div class="typo-scale-render">
+              <h3 style="font-family: var(--font-display); font-size: var(--text-h3-size); font-weight: var(--text-h3-weight); line-height: var(--text-h3-line-height); letter-spacing: var(--text-h3-letter-spacing); color: var(--color-neutral-100);">
+                Linha Pet Memorável
+              </h3>
+            </div>
+            <div class="typo-scale-meta">
+              <div class="typo-meta-row"><span>font-size:</span> <span class="typo-meta-val">1.5rem (24px)</span></div>
+              <div class="typo-meta-row"><span>weight:</span> <span class="typo-meta-val">600 (SemiBold)</span></div>
+              <div class="typo-meta-row"><span>line-height:</span> <span class="typo-meta-val">1.3</span></div>
+              <div class="typo-meta-row"><span>letter-spacing:</span> <span class="typo-meta-val">-0.01em</span></div>
+            </div>
+          </div>
+
+          <!-- H4 -->
+          <div class="typo-scale-item">
+            <div class="typo-scale-label">H4 (Subhead)</div>
+            <div class="typo-scale-render">
+              <h4 style="font-family: var(--font-display); font-size: var(--text-h4-size); font-weight: var(--text-h4-weight); line-height: var(--text-h4-line-height); color: var(--color-neutral-100);">
+                Destaques da semana
+              </h4>
+            </div>
+            <div class="typo-scale-meta">
+              <div class="typo-meta-row"><span>font-size:</span> <span class="typo-meta-val">1.125rem (18px)</span></div>
+              <div class="typo-meta-row"><span>weight:</span> <span class="typo-meta-val">600 (SemiBold)</span></div>
+              <div class="typo-meta-row"><span>line-height:</span> <span class="typo-meta-val">1.4</span></div>
+              <div class="typo-meta-row"><span>letter-spacing:</span> <span class="typo-meta-val">normal</span></div>
+            </div>
+          </div>
+
+          <!-- Body -->
+          <div class="typo-scale-item">
+            <div class="typo-scale-label">Body Text</div>
+            <div class="typo-scale-render">
+              <p style="font-family: var(--font-body); font-size: var(--text-body-size); font-weight: var(--text-body-weight); line-height: var(--text-body-line-height); color: var(--color-neutral-300);">
+                Criamos peças que contam histórias especiais. Cada filamento é fundido com carinho para durar gerações e trazer memórias reais para perto de você.
+              </p>
+            </div>
+            <div class="typo-scale-meta">
+              <div class="typo-meta-row"><span>font-size:</span> <span class="typo-meta-val">1rem (16px)</span></div>
+              <div class="typo-meta-row"><span>weight:</span> <span class="typo-meta-val">400 (Regular)</span></div>
+              <div class="typo-meta-row"><span>line-height:</span> <span class="typo-meta-val">1.6</span></div>
+            </div>
+          </div>
+
+          <!-- Small -->
+          <div class="typo-scale-item">
+            <div class="typo-scale-label">Small Text</div>
+            <div class="typo-scale-render">
+              <p style="font-family: var(--font-body); font-size: var(--text-small-size); font-weight: var(--text-small-weight); line-height: var(--text-small-line-height); color: var(--color-neutral-400);">
+                *Atendimento humanizado via WhatsApp. Respondemos rapidamente dentro do horário comercial.
+              </p>
+            </div>
+            <div class="typo-scale-meta">
+              <div class="typo-meta-row"><span>font-size:</span> <span class="typo-meta-val">0.875rem (14px)</span></div>
+              <div class="typo-meta-row"><span>weight:</span> <span class="typo-meta-val">400 (Regular)</span></div>
+              <div class="typo-meta-row"><span>line-height:</span> <span class="typo-meta-val">1.5</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Estilos Especiais -->
+      <div class="typo-sub-section">
+        <h3 class="sub-section-title">Estilos Especiais</h3>
+        <div class="typo-special-grid">
+          <div class="special-item">
+            <div class="font-family-label">Eyebrow / Overline</div>
+            <div class="special-preview-eyebrow">
+              📍 Feito com carinho no Paraná
+            </div>
+            <div class="typo-scale-meta" style="margin-top: 1rem;">
+              <div class="typo-meta-row"><span>font-size:</span> <span class="typo-meta-val">0.75rem (12px)</span></div>
+              <div class="typo-meta-row"><span>weight:</span> <span class="typo-meta-val">700 (Bold)</span></div>
+              <div class="typo-meta-row"><span>letter-spacing:</span> <span class="typo-meta-val">0.15em (Maiúsculo)</span></div>
+            </div>
+          </div>
+
+          <div class="special-item">
+            <div class="font-family-label">Links Interativos</div>
+            <div style="margin-bottom: 1rem;">
+              <a href="#" class="special-preview-link">Falar no WhatsApp</a>
+              <a href="#" class="special-preview-link" style="color: var(--color-neutral-100);">Ver catálogo</a>
+            </div>
+            <div class="typo-scale-meta">
+              <div class="typo-meta-row"><span>default-color:</span> <span class="typo-meta-val">var(--color-primary) / white</span></div>
+              <div class="typo-meta-row"><span>hover-state:</span> <span class="typo-meta-val">var(--color-primary-hover) + underline</span></div>
+              <div class="typo-meta-row"><span>transition:</span> <span class="typo-meta-val">color 0.2s ease</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ETAPA 3: ESPAÇAMENTO (MANTIDO) -->
+    <section class="ds-spacing" id="step-spacing">
+      <h2 class="section-title">Espaçamento</h2>
+      <p class="section-desc">
+        Abaixo estão documentados os tokens de espaçamento definidos de acordo com o ritmo visual da referência. Seguem um padrão proporcional baseado em uma grade de 8px e sub-grade de 4px.
+      </p>
+
+      <!-- Escala de Spacing -->
+      <div class="spacing-sub-section">
+        <h3 class="sub-section-title">Valores da Escala</h3>
+        <div class="spacing-grid">
+          <div class="spacing-item">
+            <div class="spacing-label">--space-2xs</div>
+            <div class="spacing-bar-container">
+              <div class="spacing-bar" style="width: 4px;"></div>
+            </div>
+            <div class="spacing-value">0.25rem (4px)</div>
+          </div>
+
+          <div class="spacing-item">
+            <div class="spacing-label">--space-xs</div>
+            <div class="spacing-bar-container">
+              <div class="spacing-bar" style="width: 8px;"></div>
+            </div>
+            <div class="spacing-value">0.5rem (8px)</div>
+          </div>
+
+          <div class="spacing-item">
+            <div class="spacing-label">--space-sm</div>
+            <div class="spacing-bar-container">
+              <div class="spacing-bar" style="width: 12px;"></div>
+            </div>
+            <div class="spacing-value">0.75rem (12px)</div>
+          </div>
+
+          <div class="spacing-item">
+            <div class="spacing-label">--space-md</div>
+            <div class="spacing-bar-container">
+              <div class="spacing-bar" style="width: 16px;"></div>
+            </div>
+            <div class="spacing-value">1.0rem (16px)</div>
+          </div>
+
+          <div class="spacing-item">
+            <div class="spacing-label">--space-lg</div>
+            <div class="spacing-bar-container">
+              <div class="spacing-bar" style="width: 24px;"></div>
+            </div>
+            <div class="spacing-value">1.5rem (24px)</div>
+          </div>
+
+          <div class="spacing-item">
+            <div class="spacing-label">--space-xl</div>
+            <div class="spacing-bar-container">
+              <div class="spacing-bar" style="width: 32px;"></div>
+            </div>
+            <div class="spacing-value">2.0rem (32px)</div>
+          </div>
+
+          <div class="spacing-item">
+            <div class="spacing-label">--space-2xl</div>
+            <div class="spacing-bar-container">
+              <div class="spacing-bar" style="width: 48px;"></div>
+            </div>
+            <div class="spacing-value">3.0rem (48px)</div>
+          </div>
+
+          <div class="spacing-item">
+            <div class="spacing-label">--space-3xl</div>
+            <div class="spacing-bar-container">
+              <div class="spacing-bar" style="width: 64px;"></div>
+            </div>
+            <div class="spacing-value">4.0rem (64px)</div>
+          </div>
+
+          <div class="spacing-item">
+            <div class="spacing-label">--space-section</div>
+            <div class="spacing-bar-container">
+              <div class="spacing-bar" style="width: 96px;"></div>
+            </div>
+            <div class="spacing-value">6.0rem (96px)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ritmo Vertical -->
+      <div class="spacing-sub-section">
+        <h3 class="sub-section-title">Ritmo Vertical Entre Seções</h3>
+        <div class="practical-demo">
+          <div class="rhythm-card">
+            <div class="rhythm-box">Seção 1: Hero</div>
+            <div class="rhythm-divider" style="height: var(--space-section); margin: 0.5rem 0;">
+              Ritmo de Seção: --space-section (96px)
+            </div>
+            <div class="rhythm-box">Seção 2: O Problema</div>
+            <div class="rhythm-divider" style="height: var(--space-section); margin: 0.5rem 0;">
+              Ritmo de Seção: --space-section (96px)
+            </div>
+            <div class="rhythm-box">Seção 3: A Solução</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Padding e Margens Práticos -->
+      <div class="spacing-sub-section">
+        <h3 class="sub-section-title">Demonstração Prática (Paddings e Margens Internas)</h3>
+        <div class="practical-demo">
+          <div class="demo-card" style="padding: var(--space-lg);">
+            <div style="margin-bottom: var(--space-xs);" class="font-family-label">Card Container Padding: --space-lg (24px)</div>
+            <h3 class="demo-heading" style="margin-bottom: var(--space-sm);">Título Interno</h3>
+            <p class="demo-text" style="margin-bottom: var(--space-md);">
+              Espaço entre título e parágrafo definido por <code>--space-sm (12px)</code>. Espaço abaixo deste bloco definido por <code>--space-md (16px)</code>.
+            </p>
+            <div style="display: flex; gap: var(--space-sm);">
+              <button style="background: var(--color-primary); color: white; border: none; padding: var(--space-sm) var(--space-lg); border-radius: 6px; font-family: var(--font-display); font-weight: 600; font-size: 0.9rem; cursor: pointer;">
+                Botão Primário
+              </button>
+              <button style="background: transparent; color: white; border: 1px solid var(--color-border-accent); padding: var(--space-sm) var(--space-lg); border-radius: 6px; font-family: var(--font-display); font-weight: 600; font-size: 0.9rem; cursor: pointer;">
+                Cancelar
+              </button>
+            </div>
+            <div style="margin-top: var(--space-xs); font-size: 0.75rem; color: var(--color-neutral-400);">
+              Gap entre botões: <code>--space-sm (12px)</code>. Padding dos botões: <code>--space-sm (vertical)</code> e <code>--space-lg (horizontal)</code>.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ETAPA 4: GRID E LAYOUT (MANTIDO) -->
+    <section class="ds-layout" id="step-layout">
+      <h2 class="section-title">Grid & Layout</h2>
+      <p class="section-desc">
+        Mapeamento da organização espacial do conteúdo e do comportamento responsivo do site.
+      </p>
+
+      <!-- Containers -->
+      <div class="layout-sub-section">
+        <h3 class="sub-section-title">Containers</h3>
+        <div class="container-visualizer">
+          <div>
+            <div style="display:flex; justify-content:space-between; margin-bottom: 0.5rem;">
+              <span class="spacing-label">Container Padrão (--container-max)</span>
+              <span class="spacing-value">Max-Width: 75rem (1200px)</span>
+            </div>
+            <div class="visual-container">
+              <div class="visual-container-bar">
+                [ Container Padrão - Usado para vitrines, cabeçalhos e rodapés ]
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div style="display:flex; justify-content:space-between; margin-bottom: 0.5rem;">
+              <span class="spacing-label">Container Estreito (--container-narrow)</span>
+              <span class="spacing-value">Max-Width: 50rem (800px)</span>
+            </div>
+            <div class="visual-container" style="max-width: 800px; margin: 0 auto;">
+              <div class="visual-container-bar" style="border-color: var(--color-secondary);">
+                [ Container Estreito - Usado para formulários e texto corrido ]
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grade 12 colunas -->
+      <div class="layout-sub-section">
+        <h3 class="sub-section-title">Grade Responsiva de 12 Colunas</h3>
+        <div class="grid-visualizer-box">
+          <div class="grid-demo">
+            <div class="grid-column-item">C1</div>
+            <div class="grid-column-item">C2</div>
+            <div class="grid-column-item">C3</div>
+            <div class="grid-column-item">C4</div>
+            <div class="grid-column-item">C5</div>
+            <div class="grid-column-item">C6</div>
+            <div class="grid-column-item">C7</div>
+            <div class="grid-column-item">C8</div>
+            <div class="grid-column-item">C9</div>
+            <div class="grid-column-item">C10</div>
+            <div class="grid-column-item">C11</div>
+            <div class="grid-column-item">C12</div>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-top: 0.8rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-neutral-400);">
+            <span>Espaçamento (Gutter): <code>--grid-gutter (1.5rem / 24px)</code></span>
+            <span>Colunas Totais: <code>--grid-columns (12)</code></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Breakpoints -->
+      <div class="layout-sub-section">
+        <h3 class="sub-section-title">Breakpoints & Responsividade</h3>
+        <div class="table-container">
+          <table class="ds-table">
+            <thead>
+              <tr>
+                <th>Dispositivo</th>
+                <th>Breakpoint (CSS)</th>
+                <th>Largura em PX</th>
+                <th>Padding Lateral</th>
+                <th>Comportamento Esperado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight: bold; color: white;">Celular (Mobile)</td>
+                <td class="table-code">&lt; 40rem</td>
+                <td>&lt; 640px</td>
+                <td class="table-code">--container-padding-mobile (1rem / 16px)</td>
+                <td>Grid vertical de 1 coluna. Gaps reduzidos.</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold; color: white;">Tablet Retrato</td>
+                <td class="table-code">&gt;= 48rem</td>
+                <td>&gt;= 768px</td>
+                <td class="table-code">--container-padding-tablet (1.5rem / 24px)</td>
+                <td>Grids colapsam para 2 colunas.</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold; color: white;">Desktop Pequeno</td>
+                <td class="table-code">&gt;= 64rem</td>
+                <td>&gt;= 1024px</td>
+                <td class="table-code">--container-padding-desktop (2.5rem / 40px)</td>
+                <td>Grid de 12 colunas completo habilitado.</td>
+              </tr>
+              <tr>
+                <td style="font-weight: bold; color: white;">Desktop Padrão</td>
+                <td class="table-code">&gt;= 80rem</td>
+                <td>&gt;= 1280px</td>
+                <td class="table-code">--container-padding-desktop (2.5rem / 40px)</td>
+                <td>Container trava em 1200px. Centralizado.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ETAPA 5: COMPONENTES VISUAIS (MANTIDO) -->
+    <section class="ds-components" id="step-components">
+      <h2 class="section-title">Componentes</h2>
+      <p class="section-desc">
+        Abaixo estão os blocos de construção de interface mapeados a partir da engenharia reversa.
+      </p>
+
+      <!-- Border Radius -->
+      <div class="comp-sub-section">
+        <h3 class="sub-section-title">Border Radius (Arredondamento de Cantos)</h3>
+        <div class="radius-grid">
+          <div class="radius-card">
+            <div class="radius-preview" style="border-radius: var(--radius-sm);"></div>
+            <div class="token-name">--radius-sm</div>
+            <div class="token-value">0.375rem (6px)</div>
+            <div class="token-desc">Badges e tags.</div>
+          </div>
+
+          <div class="radius-card">
+            <div class="radius-preview" style="border-radius: var(--radius-md);"></div>
+            <div class="token-name">--radius-md</div>
+            <div class="token-value">0.625rem (10px)</div>
+            <div class="token-desc">Inputs de formulários e botões com acentos retangulares.</div>
+          </div>
+
+          <div class="radius-card">
+            <div class="radius-preview" style="border-radius: var(--radius-lg);"></div>
+            <div class="token-name">--radius-lg</div>
+            <div class="token-value">1.0rem (16px)</div>
+            <div class="token-desc">Cards de produtos e banners grandes.</div>
+          </div>
+
+          <div class="radius-card">
+            <div class="radius-preview" style="border-radius: var(--radius-pill);"></div>
+            <div class="token-name">--radius-pill</div>
+            <div class="token-value">9999px</div>
+            <div class="token-desc">Botões de ação em formato de pílula (CTAs).</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sombras / Box Shadow -->
+      <div class="comp-sub-section">
+        <h3 class="sub-section-title">Sombras (Elevações & Efeitos de Brilho)</h3>
+        <div class="shadow-grid">
+          <div class="shadow-card-preview" style="box-shadow: var(--shadow-subtle);">
+            <div class="token-name">--shadow-subtle</div>
+            <div class="token-desc" style="margin-top: 0.5rem;">Sombra discreta padrão de cards.</div>
+          </div>
+
+          <div class="shadow-card-preview" style="box-shadow: var(--shadow-elevated);">
+            <div class="token-name">--shadow-elevated</div>
+            <div class="token-desc" style="margin-top: 0.5rem;">Sombra flutuante para menus, tooltips ou modais.</div>
+          </div>
+
+          <div class="shadow-card-preview" style="box-shadow: var(--shadow-glow-purple); border-color: var(--color-primary-light);">
+            <div class="token-name">--shadow-glow-purple</div>
+            <div class="token-desc" style="margin-top: 0.5rem;">Brilho roxo neon sob hover ou ativado para botões principais.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botões -->
+      <div class="comp-sub-section">
+        <h3 class="sub-section-title">Botões (Variantes & Estados)</h3>
+        <div class="buttons-demo-flex">
+          <div>
+            <div class="font-family-label" style="margin-bottom: 0.5rem;">Primário (Roxo)</div>
+            <button class="btn-ds btn-ds-primary">Eternizar meu pet</button>
+          </div>
+
+          <div>
+            <div class="font-family-label" style="margin-bottom: 0.5rem;">Secundário (Outlined)</div>
+            <button class="btn-ds btn-ds-secondary">Saber Mais</button>
+          </div>
+
+          <div>
+            <div class="font-family-label" style="margin-bottom: 0.5rem;">Acento (Laranja)</div>
+            <button class="btn-ds btn-ds-accent">Pedir Orçamento</button>
+          </div>
+
+          <div>
+            <div class="font-family-label" style="margin-bottom: 0.5rem;">Ícone Circular</div>
+            <button class="btn-ds btn-ds-icon">🐾</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cards de Produto Mockup -->
+      <div class="comp-sub-section">
+        <h3 class="sub-section-title">Cards / Cartões de Produtos</h3>
+        <div class="cards-demo-container">
+          <div class="product-card-mockup">
+            <div class="card-img-mockup">
+              <span class="card-badge">Destaque</span>
+            </div>
+            <div class="card-info">
+              <div class="card-tag-row">
+                <span class="card-tag">Linha Pet</span>
+                <span class="card-tag">PLA Biodegradável</span>
+              </div>
+              <h3 class="card-title">Chaveiro Pet Homenagem</h3>
+              <p class="card-desc">
+                Chaveiro personalizado com relevo 3D modelado a partir da foto real do seu cão ou gato. Leve seu amigo com você para todo lugar.
+              </p>
+              <div class="card-footer">
+                <span class="card-stars">★★★★★</span>
+                <button class="btn-ds btn-ds-accent" style="padding: 0.4rem 0.9rem; font-size: 0.8rem;">Fazer Encomenda</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-card-mockup">
+            <div class="card-img-mockup" style="background: #151b2c;"></div>
+            <div class="card-info">
+              <div class="card-tag-row">
+                <span class="card-tag">Decoração</span>
+                <span class="card-tag">Sob Medida</span>
+              </div>
+              <h3 class="card-title">Vaso Geométrico Minimalista</h3>
+              <p class="card-desc">
+                Ideal para suculentas e cactos. Design moderno modelado em 3D para trazer sofisticação e criatividade ao seu escritório ou estante.
+              </p>
+              <div class="card-footer">
+                <span class="card-stars">★★★★★</span>
+                <button class="btn-ds btn-ds-accent" style="padding: 0.4rem 0.9rem; font-size: 0.8rem;">Pedir Peça</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formulários e Inputs -->
+      <div class="comp-sub-section">
+        <h3 class="sub-section-title">Formulários & Entradas (Inputs)</h3>
+        <div style="background: #161522; border: 1px solid #222135; padding: 2rem; border-radius: var(--radius-lg);">
+          <div style="display:flex; flex-direction:column; gap: 0.5rem;">
+            <label style="font-family: var(--font-body); font-size: 0.85rem; font-weight: 600; color: var(--color-neutral-200);">
+              Seu nome completo
+            </label>
+            <input type="text" class="input-ds" placeholder="Digite seu nome...">
+            <span style="font-size: 0.72rem; color: var(--color-neutral-400);">Clique para testar a borda brilhante ativa.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ETAPA 6: EFEITOS E TEXTURAS (NOVO) -->
+    <section class="ds-effects" id="step-effects">
+      <h2 class="section-title">Efeitos & Texturas</h2>
+      <p class="section-desc">
+        Mapeamento de efeitos visuais secundários, como glassmorphism (efeito vidro), texturas de plano de fundo, overlays de contraste e curvas de transições interativas. Estes detalhes trazem polimento estético premium ao layout.
+      </p>
+
+      <!-- Glassmorphism -->
+      <div class="effects-sub-section">
+        <h3 class="sub-section-title">Glassmorphism (Efeito Vidro Fosco)</h3>
+        <p class="section-desc" style="margin-bottom: 1.2rem;">
+          Usado para a barra de navegação no topo e painéis flutuantes. Permite ver sutilmente as cores vibrantes do fundo que fluem por trás, criando profundidade tridimensional.
+        </p>
+        <div class="glass-demo-bg">
+          <div class="glass-card-preview">
+            <h4 style="font-family: var(--font-display); color: #fff; margin-bottom: 0.5rem;">Painel Translúcido</h4>
+            <p style="font-family: var(--font-body); font-size: 0.88rem; color: var(--color-neutral-200); line-height: 1.4;">
+              Fundo com 70% de opacidade e desfoque traseiro (backdrop-filter) de <code>12px</code>.
+            </p>
+            <div class="font-family-label" style="margin-top: 1rem; font-size: 0.72rem; color: var(--color-primary-light);">
+              backdrop-filter: var(--blur-glass)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Textura de Pontos (Pattern) -->
+      <div class="effects-sub-section">
+        <h3 class="sub-section-title">Texturas de Fundo (Background Patterns)</h3>
+        <p class="section-desc" style="margin-bottom: 1.2rem;">
+          Uma grade de pontos minimalistas e semitransparentes que quebra a monotonia dos fundos escuros sem poluir ou concorrer com as imagens reais.
+        </p>
+        <div class="pattern-demo-box">
+          <div>
+            <span class="font-family-label" style="color: var(--color-primary-light);">--bg-pattern-dots</span>
+            <p style="font-size: 0.85rem; color: var(--color-neutral-200); margin-top: 0.5rem;">
+              Grade de pontos discretos com repetição a cada 20px
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Overlays & Filters -->
+      <div class="effects-sub-section">
+        <h3 class="sub-section-title">Filtros & Overlays de Contraste</h3>
+        <div class="filter-demo-flex">
+          
+          <div class="filter-demo-card">
+            <div class="font-family-label">Gradient Overlay sobre Imagem</div>
+            <div class="image-container-overlay">
+              <div class="overlay-mask"></div>
+            </div>
+            <p style="font-size: 0.82rem; color: var(--color-neutral-300);">
+              Máscara preta translúcida (degradê linear de 0% a 95%) aplicada sobre imagens para assegurar a legibilidade de textos sobrepostos.
+            </p>
+          </div>
+
+          <div class="filter-demo-card">
+            <div class="font-family-label">Hover Filters (Brilho & Saturação)</div>
+            <div class="image-container-overlay">
+              <!-- Sem overlay mask para mostrar puramente o filtro -->
+            </div>
+            <p style="font-size: 0.82rem; color: var(--color-neutral-300);">
+              Ao passar o mouse, a imagem do produto recebe <code>brightness(1.08)</code> e <code>saturate(1.1)</code>, dando a sensação de "acender" o item.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Transições & Easing -->
+      <div class="effects-sub-section">
+        <h3 class="sub-section-title">Transições Interativas (Transition Easing)</h3>
+        <p class="section-desc" style="margin-bottom: 1.2rem;">
+          Curvas de velocidade que controlam a aceleração dos hovers e cliques, evitando movimentos abruptos. Passe o mouse sobre os botões abaixo para ver os tempos em funcionamento:
+        </p>
+        <div class="transition-demo-flex">
+          
+          <div style="flex: 1; min-width: 200px;">
+            <div class="font-family-label" style="margin-bottom: 0.5rem;">Transição Rápida (Fast)</div>
+            <button class="transition-btn t-fast">--transition-fast (0.15s)</button>
+            <p style="font-size: 0.75rem; color: var(--color-neutral-400); margin-top: 0.5rem;">
+              Ideal para alteração de cor de links e feedbacks rápidos de foco.
+            </p>
+          </div>
+
+          <div style="flex: 1; min-width: 200px;">
+            <div class="font-family-label" style="margin-bottom: 0.5rem;">Transição Normal (Figma standard)</div>
+            <button class="transition-btn t-normal">--transition-normal (0.3s)</button>
+            <p style="font-size: 0.75rem; color: var(--color-neutral-400); margin-top: 0.5rem;">
+              Perfeito para cards levantando, botões crescendo e abertura de dropdowns.
+            </p>
+          </div>
+
+          <div style="flex: 1; min-width: 200px;">
+            <div class="font-family-label" style="margin-bottom: 0.5rem;">Transição Lenta (Slow)</div>
+            <button class="transition-btn t-slow">--transition-slow (0.5s)</button>
+            <p style="font-size: 0.75rem; color: var(--color-neutral-400); margin-top: 0.5rem;">
+              Usado para revelação lenta de imagens ou efeitos de entrada de seções inteiras.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

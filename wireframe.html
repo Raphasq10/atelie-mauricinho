@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wireframe Alta Fidelidade — Ateliê do Mauricinho 3D</title>
+  <style>
+    /* ==========================================================================
+       WIREFRAME DESIGN TOKENS (Preto, Branco e Cinzas Apenas)
+       ========================================================================== */
+    :root {
+      /* Palette Mono */
+      --wf-black: #000000;
+      --wf-dark: #333333;
+      --wf-mid: #666666;
+      --wf-light: #999999;
+      --wf-subtle: #cccccc;
+      --wf-bg-light: #f5f5f5;
+      --wf-bg-card: #ffffff;
+      --wf-white: #ffffff;
+
+      /* Typography Scale (Design System) */
+      --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      
+      --text-h1-size: 3.5rem;             /* 56px */
+      --text-h1-line-height: 1.15;
+      --text-h1-weight: 800;
+
+      --text-h2-size: 2.25rem;            /* 36px */
+      --text-h2-line-height: 1.2;
+      --text-h2-weight: 700;
+
+      --text-h3-size: 1.5rem;             /* 24px */
+      --text-h3-line-height: 1.3;
+      --text-h3-weight: 600;
+
+      --text-h4-size: 1.125rem;           /* 18px */
+      --text-h4-line-height: 1.4;
+      --text-h4-weight: 600;
+
+      --text-body-size: 1rem;             /* 16px */
+      --text-body-line-height: 1.6;
+      --text-body-weight: 400;
+
+      --text-small-size: 0.875rem;        /* 14px */
+      --text-small-line-height: 1.5;
+
+      --text-eyebrow-size: 0.75rem;       /* 12px */
+      --text-eyebrow-weight: 700;
+      --text-eyebrow-letter-spacing: 0.15em;
+
+      /* Layout & Spacing */
+      --container-max: 75rem;             /* 1200px */
+      --container-narrow: 50rem;          /* 800px */
+      --container-padding: 2.5rem;        /* 40px desktop */
+      --space-section: 6rem;              /* 96px */
+      --space-lg: 1.5rem;                 /* 24px */
+      --space-md: 1rem;                   /* 16px */
+      --space-sm: 0.75rem;                /* 12px */
+      --space-xs: 0.5rem;                 /* 8px */
+
+      --border-radius-card: 16px;
+      --border-radius-btn: 9999px;
+    }
+
+    /* Reset & Base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--wf-bg-light);
+      color: var(--wf-dark);
+      line-height: var(--text-body-line-height);
+      font-size: var(--text-body-size);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Container System */
+    .container {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding-left: var(--container-padding);
+      padding-right: var(--container-padding);
+    }
+
+    .container-narrow {
+      max-width: var(--container-narrow);
+      margin: 0 auto;
+      padding-left: var(--container-padding);
+      padding-right: var(--container-padding);
+    }
+
+    /* Typography Classes */
+    h1, .h1 {
+      font-size: var(--text-h1-size);
+      line-height: var(--text-h1-line-height);
+      font-weight: var(--text-h1-weight);
+      color: var(--wf-black);
+      letter-spacing: -0.02em;
+    }
+
+    h2, .h2 {
+      font-size: var(--text-h2-size);
+      line-height: var(--text-h2-line-height);
+      font-weight: var(--text-h2-weight);
+      color: var(--wf-black);
+      letter-spacing: -0.015em;
+    }
+
+    h3, .h3 {
+      font-size: var(--text-h3-size);
+      line-height: var(--text-h3-line-height);
+      font-weight: var(--text-h3-weight);
+      color: var(--wf-black);
+    }
+
+    p {
+      color: var(--wf-mid);
+    }
+
+    .small-text {
+      font-size: var(--text-small-size);
+      line-height: var(--text-small-line-height);
+      color: var(--wf-mid);
+    }
+
+    .eyebrow-badge {
+      display: inline-block;
+      font-size: var(--text-eyebrow-size);
+      font-weight: var(--text-eyebrow-weight);
+      text-transform: uppercase;
+      letter-spacing: var(--text-eyebrow-letter-spacing);
+      background: #e0e0e0;
+      border: 1px solid var(--wf-subtle);
+      color: var(--wf-black);
+      padding: 0.3rem 0.8rem;
+      border-radius: 4px;
+      margin-bottom: var(--space-md);
+    }
+
+    /* Wireframe Components */
+    .btn-wireframe {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--wf-black);
+      background: transparent;
+      border: 2px solid var(--wf-black);
+      border-radius: var(--border-radius-btn);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-wireframe:hover {
+      background: var(--wf-black);
+      color: var(--wf-white);
+    }
+
+    .btn-wireframe-secondary {
+      border: 1px solid var(--wf-mid);
+      color: var(--wf-dark);
+    }
+
+    .btn-wireframe-secondary:hover {
+      background: var(--wf-dark);
+      color: var(--wf-white);
+    }
+
+    .img-placeholder {
+      background: #e5e5e5;
+      border: 2px dashed var(--wf-subtle);
+      color: var(--wf-mid);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      border-radius: var(--border-radius-card);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .video-placeholder {
+      background: #333333;
+      border: 2px dashed #666666;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      border-radius: var(--border-radius-card);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .icon-placeholder {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #e0e0e0;
+      border: 1px solid var(--wf-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: bold;
+      color: var(--wf-dark);
+      margin-bottom: var(--space-md);
+    }
+
+    /* Section Wrapper */
+    section {
+      padding-top: calc(var(--space-section) / 2);
+      padding-bottom: calc(var(--space-section) / 2);
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    /* Header Nav */
+    header.wf-header {
+      background: var(--wf-white);
+      border-bottom: 1px solid var(--wf-subtle);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 1rem 0;
+    }
+
+    .header-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-placeholder {
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--wf-black);
+      border: 1px dashed var(--wf-mid);
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--wf-dark);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Hero Section */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .hero-content h1 {
+      margin-bottom: var(--space-md);
+    }
+
+    .hero-content .subtitle {
+      font-size: 1.25rem;
+      color: var(--wf-mid);
+      margin-bottom: var(--space-xl);
+      line-height: 1.5;
+    }
+
+    .cta-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+      align-items: flex-start;
+    }
+
+    /* Problem Section */
+    .problem-box {
+      background: var(--wf-white);
+      border: 1px solid var(--wf-subtle);
+      border-radius: var(--border-radius-card);
+      padding: 3rem 2.5rem;
+      text-align: center;
+    }
+
+    .problem-box h2 {
+      margin-bottom: var(--space-md);
+    }
+
+    .problem-box p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Solution Section */
+    .solution-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .solution-header h2 {
+      margin-bottom: var(--space-xs);
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .wf-card {
+      background: var(--wf-white);
+      border: 1px solid var(--wf-subtle);
+      border-radius: var(--border-radius-card);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .wf-card-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .card-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--wf-mid);
+      margin-bottom: 0.5rem;
+    }
+
+    .wf-card-body h3 {
+      margin-bottom: var(--space-xs);
+    }
+
+    /* Process Section */
+    .process-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .step-card {
+      background: var(--wf-white);
+      border: 1px solid var(--wf-subtle);
+      border-radius: var(--border-radius-card);
+      padding: 2rem;
+    }
+
+    .step-number {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--wf-mid);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Social Proof Section */
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .story-content h2 {
+      margin-bottom: var(--space-md);
+    }
+
+    .story-content p {
+      margin-bottom: 1.2rem;
+      font-size: 1.05rem;
+    }
+
+    .story-signature {
+      font-weight: 700;
+      color: var(--wf-black);
+      font-size: 1.1rem;
+      margin-top: 1rem;
+    }
+
+    .quote-box {
+      background: #eeeeee;
+      border-left: 4px solid var(--wf-black);
+      padding: 1.2rem;
+      margin-top: 1.5rem;
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+
+    /* FAQ Section */
+    .faq-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .faq-item {
+      background: var(--wf-white);
+      border: 1px solid var(--wf-subtle);
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+
+    .faq-item h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+    }
+
+    /* Footer CTA */
+    .footer-cta-box {
+      background: var(--wf-white);
+      border: 2px solid var(--wf-black);
+      border-radius: var(--border-radius-card);
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .footer-cta-box h2 {
+      margin-bottom: var(--space-xs);
+    }
+
+    .footer-cta-box .subtitle {
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    /* Footer */
+    footer.wf-footer {
+      background: #e0e0e0;
+      padding: 3rem 0;
+      border-top: 1px solid var(--wf-subtle);
+      text-align: center;
+    }
+
+    .footer-badges {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Responsive Breakpoints */
+    @media (min-width: 768px) {
+      .cards-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .steps-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .story-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       HEADER NAVEGAÇÃO (WIREFRAME)
+       ========================================================================== -->
+  <header class="wf-header">
+    <div class="container header-flex">
+      <div class="logo-placeholder">
+        [ LOGO — Ateliê do Mauricinho 3D ]
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#problema">O Problema</a></li>
+          <li><a href="#solucao">Criações</a></li>
+          <li><a href="#processo">Como Funciona</a></li>
+          <li><a href="#quem-somos">Quem Somos</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </nav>
+      <div>
+        <a href="#cta-final" class="btn-wireframe btn-wireframe-secondary" style="padding: 0.5rem 1.2rem; font-size: 0.85rem;">
+          Falar no WhatsApp
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==========================================================================
+         SEÇÃO 1: HERO (CONEXÃO & AÇÃO DIRETA)
+         ========================================================================== -->
+    <!-- HERO SECTION -->
+    <section class="hero" id="hero">
+      <div class="container">
+        <div class="hero-grid">
+          
+          <div class="hero-content">
+            <span class="eyebrow-badge">📍 Feito com carinho no Oeste do Paraná</span>
+            <h1>Eternize seu melhor amigo em 3D.</h1>
+            <p class="subtitle">
+              Transformamos a foto do seu pet ou a sua ideia mais criativa em uma lembrança real e única para decorar seu lar.
+            </p>
+            
+            <div class="cta-wrapper">
+              <a href="https://wa.me/5545999999999?text=Olá!%20Gostaria%20de%20eternizar%20meu%20pet%20em%203D" class="btn-wireframe">
+                Quero eternizar meu pet no WhatsApp
+              </a>
+              <p class="small-text">
+                <em>Atendimento humano e sem compromisso. Respondemos rápido.</em>
+              </p>
+            </div>
+          </div>
+
+          <div class="hero-image">
+            <div class="img-placeholder" style="height: 380px;">
+              <span>[ MOCKUP HERO IMAGE — 1200x800px ]</span>
+              <span style="font-size: 0.75rem; margin-top: 0.5rem; font-weight: normal; color: #666;">
+                Visual de comparação: Foto real do pet ao lado do modelo impresso 3D finalizado
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SEÇÃO 2: O PROBLEMA (A DOR DA LEMBRANÇA FRIA)
+         ========================================================================== -->
+    <!-- PROBLEM SECTION -->
+    <section class="problem" id="problema">
+      <div class="container-narrow">
+        <div class="problem-box">
+          <span class="eyebrow-badge">A busca pelo presente perfeito</span>
+          <h2>Por que presentes comuns parecem tão sem graça?</h2>
+          <p>
+            Lojas de departamento estão cheias de objetos iguais, que não contam história nenhuma. E quando você quer guardar a memória do seu pet ou dar um presente que realmente emocione alguém, as opções parecem frias e distantes.
+          </p>
+          <p>
+            Você merece algo que tenha a carinha de quem você ama. Algo que faça você olhar para a estante e dar um sorriso imediato.
+          </p>
+
+          <div class="img-placeholder" style="height: 180px; margin-top: 2rem;">
+            <span>[ GRÁFICO COMPARATIVO — Produção em Massa Genérica vs. Afeto Personalizado 3D ]</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SEÇÃO 3: A SOLUÇÃO (NOSSAS CRIAÇÕES AFETUOSAS)
+         ========================================================================== -->
+    <!-- SOLUTION SECTION -->
+    <section class="solution" id="solucao">
+      <div class="container">
+        
+        <div class="solution-header">
+          <h2>Ideias que ganham vida e viram afeto</h2>
+          <p class="subtitle">Combinamos tecnologia e sensibilidade para criar peças que contam histórias.</p>
+        </div>
+
+        <div class="cards-grid">
+          
+          <!-- Card 1 -->
+          <div class="wf-card">
+            <div class="img-placeholder" style="height: 220px; border-radius: 0;">
+              <span>[ FOTO CARD 1 — 600x400px ]</span>
+              <span style="font-size: 0.75rem; color: #666; font-weight: normal;">Escultura / Plaquinha Pet</span>
+            </div>
+            <div class="wf-card-body">
+              <span class="card-tag">Categoria 1</span>
+              <h3>Linha Pet Memorável</h3>
+              <p>Esculturas personalizadas, plaquinhas de homenagem e chaveiros idênticos ao seu companheiro de quatro patas.</p>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="wf-card">
+            <div class="img-placeholder" style="height: 220px; border-radius: 0;">
+              <span>[ FOTO CARD 2 — 600x400px ]</span>
+              <span style="font-size: 0.75rem; color: #666; font-weight: normal;">Luminária / Vaso Geométrico</span>
+            </div>
+            <div class="wf-card-body">
+              <span class="card-tag">Categoria 2</span>
+              <h3>Decoração Criativa</h3>
+              <p>Luminárias personalizadas, vasos geométricos e peças exclusivas para dar vida ao seu cantinho.</p>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="wf-card">
+            <div class="img-placeholder" style="height: 220px; border-radius: 0;">
+              <span>[ FOTO CARD 3 — 600x400px ]</span>
+              <span style="font-size: 0.75rem; color: #666; font-weight: normal;">Cortadores de Biscoito Pet</span>
+            </div>
+            <div class="wf-card-body">
+              <span class="card-tag">Categoria 3</span>
+              <h3>Cortadores & Utilidades</h3>
+              <p>Cortadores de biscoito sob medida (inclusive com formato de patinhas!) e organizadores funcionais.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="text-align: center;">
+          <a href="https://wa.me/5545999999999?text=Quero%20ver%20fotos%20das%20peças%20personalizadas" class="btn-wireframe btn-wireframe-secondary">
+            Ver fotos das peças no WhatsApp
+          </a>
+          <p class="small-text" style="margin-top: 0.8rem;">
+            <em>Clique para ver exemplos reais criados pelo Mauricinho.</em>
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SEÇÃO 4: O PROCESSO (COMO FUNCIONA)
+         ========================================================================== -->
+    <!-- PROCESS SECTION -->
+    <section class="process" id="processo">
+      <div class="container">
+        
+        <div class="process-header">
+          <h2>Você imagina, o Mauricinho imprime.</h2>
+          <p class="subtitle">Sem termos técnicos complicados. Você participa de cada etapa em 3 passos simples:</p>
+        </div>
+
+        <div class="steps-grid">
+          
+          <!-- Passo 1 -->
+          <div class="step-card">
+            <div class="icon-placeholder">ÍCONE 1</div>
+            <div class="step-number">PASSO 01</div>
+            <h3>1. Compartilhe a Ideia</h3>
+            <p>Envie a foto do seu pet ou explique sua ideia pelo WhatsApp. Nós ajudamos a escolher o melhor modelo.</p>
+          </div>
+
+          <!-- Passo 2 -->
+          <div class="step-card">
+            <div class="icon-placeholder">ÍCONE 2</div>
+            <div class="step-number">PASSO 02</div>
+            <h3>2. Modelagem & Produção</h3>
+            <p>Ajustamos o design com carinho e colocamos nossas impressoras para trabalhar.</p>
+          </div>
+
+          <!-- Passo 3 -->
+          <div class="step-card">
+            <div class="icon-placeholder">ÍCONE 3</div>
+            <div class="step-number">PASSO 03</div>
+            <h3>3. Entrega no Oeste do Paraná</h3>
+            <p>Embalamos com cuidado e enviamos para Cascavel e região. Você recebe um pedacinho de amor em mãos.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SEÇÃO 5: PROVA SOCIAL & HISTÓRIA (QUEM FAZ ACONTECER)
+         ========================================================================== -->
+    <!-- SOCIAL PROOF SECTION -->
+    <section class="social-proof" id="quem-somos">
+      <div class="container">
+        <div class="story-grid">
+          
+          <div class="story-image">
+            <div class="img-placeholder" style="height: 400px;">
+              <span>[ FOTO DO FUNDADOR / EQUIPE — 500x500px ]</span>
+              <span style="font-size: 0.75rem; color: #666; margin-top: 0.5rem; font-weight: normal;">
+                Fran, Alice e o gatinho Mauricinho no Ateliê 3D
+              </span>
+            </div>
+          </div>
+
+          <div class="story-content">
+            <span class="eyebrow-badge">Quem faz acontecer</span>
+            <h2>O coração por trás de cada filamento</h2>
+            <p>
+              O Ateliê do Mauricinho nasceu da nossa paixão (Fran e Alice) por transformar saudades em presença e ideias em realidade. Inspiradas pelo nosso gatinho Mauricinho, criamos peças que tocam o coração de quem recebe.
+            </p>
+            <p>
+              Não imprimimos apenas plástico; materializamos amor, cuidado e momentos especiais que duram para sempre.
+            </p>
+            
+            <div class="story-signature">
+              Fran, Alice & Mauricinho 🐾
+            </div>
+
+            <div class="quote-box">
+              "Fiquei emocionada quando vi a plaquinha do meu Bob! É uma lembrança eterna do meu anjinho." <br>
+              <small style="color: var(--wf-mid); font-weight: normal;">— Depoimento de cliente de Cascavel/PR</small>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SEÇÃO 6: FAQ (DÚVIDAS FREQUENTES)
+         ========================================================================== -->
+    <!-- FAQ SECTION -->
+    <section class="faq" id="faq">
+      <div class="container-narrow">
+        
+        <div class="faq-header">
+          <h2>Perguntas de quem quer começar</h2>
+          <p class="subtitle">Tire suas dúvidas antes de fazer seu primeiro pedido:</p>
+        </div>
+
+        <div class="faq-list">
+          
+          <div class="faq-item">
+            <h3>Qual material é utilizado nas impressões?</h3>
+            <p>Utilizamos principalmente o PLA, um plástico biodegradável feito a partir de fontes renováveis (como amido de milho). Ele é seguro para ter em casa e super resistente.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Como funciona a entrega em Cascavel e região?</h3>
+            <p>Entregamos pessoalmente ou via motoboy em Cascavel. Para outras cidades do Oeste do Paraná, enviamos de forma rápida e segura com embalagens super protegidas.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Preciso ter o arquivo 3D pronto para fazer o pedido?</h3>
+            <p>Não! Apenas uma foto nítida do seu pet ou uma descrição da sua ideia é suficiente. Nós cuidamos de toda a preparação para você.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Qual o tempo de produção de uma peça personalizada?</h3>
+            <p>O tempo médio varia de 3 a 7 dias úteis, dependendo do tamanho e detalhamento da peça. Avisamos o prazo exato logo no início do contato.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SEÇÃO 7: CTA FINAL (FECHAMENTO CONVINCENTE)
+         ========================================================================== -->
+    <!-- FOOTER CTA SECTION -->
+    <section class="footer-cta" id="cta-final">
+      <div class="container-narrow">
+        <div class="footer-cta-box">
+          <h2>Transforme seu afeto em algo físico hoje.</h2>
+          <p class="subtitle">Mande uma mensagem para nós. Vamos planejar o presente perfeito juntos, sem burocracia.</p>
+          
+          <div style="margin-bottom: 1rem;">
+            <a href="https://wa.me/5545999999999?text=Olá!%20Vim%20pelo%20site%20e%20quero%20fazer%20meu%20pedido" class="btn-wireframe">
+              Falar com o Mauricinho e fazer meu pedido
+            </a>
+          </div>
+
+          <p class="small-text">
+            <em>Clique para abrir o WhatsApp. Atendimento humanizado e acolhedor.</em>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       RODAPÉ (FOOTER WIREFRAME)
+       ========================================================================== -->
+  <footer class="wf-footer">
+    <div class="container">
+      <div class="footer-badges">
+        <span class="eyebrow-badge" style="margin: 0;">🌱 Plástico Ecológico (Biodegradável)</span>
+        <span class="eyebrow-badge" style="margin: 0;">📍 Atendimento em Cascavel e Oeste do Paraná</span>
+      </div>
+      <p style="margin-bottom: 0.8rem; font-weight: 500;">
+        Desenvolvido com carinho para todos os pais e mães de pet do Paraná.
+      </p>
+      <p class="small-text">
+        © 2026 Ateliê do Mauricinho 3D — Siga no Instagram/TikTok: <strong>@mauricinhoogatomaluquinho</strong>
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

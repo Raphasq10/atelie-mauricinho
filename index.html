@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ateliê do Mauricinho 3D — Eternize seu pet em 3D</title>
+  <meta name="description" content="Transformamos a foto do seu pet ou sua ideia em uma escultura 3D artesanal e inesquecível. Atendimento humanizado em Cascavel e Oeste do Paraná.">
+
+  <!-- Local Font Declarations (@font-face WOFF2) -->
+  <style>
+    @font-face {
+      font-family: 'Outfit';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url('./fonts/outfit-500.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Outfit';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url('./fonts/outfit-600.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Outfit';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url('./fonts/outfit-700.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Outfit';
+      font-style: normal;
+      font-weight: 800;
+      font-display: swap;
+      src: url('./fonts/outfit-800.woff2') format('woff2');
+    }
+
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url('./fonts/inter-400.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url('./fonts/inter-500.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 600;
+      font-display: swap;
+      src: url('./fonts/inter-600.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 700;
+      font-display: swap;
+      src: url('./fonts/inter-700.woff2') format('woff2');
+    }
+
+    /* ==========================================================================
+       BRAND DESIGN TOKENS (Custom Properties)
+       ========================================================================== */
+    :root {
+      /* Brand Accents */
+      --color-primary: #8B3DFF;
+      --color-primary-hover: #A266FF;
+      --color-primary-glow: rgba(139, 61, 255, 0.35);
+
+      --color-secondary: #F59E0B;
+      --color-secondary-hover: #D97706;
+      --color-secondary-glow: rgba(245, 158, 11, 0.3);
+
+      /* Neutral Dark (Surfaces) */
+      --color-bg-deep: #09080F;
+      --color-bg-surface: #12111A;
+      --color-bg-surface-elevated: #1A1827;
+
+      /* Neutral Light (Typography - WCAG AA Compliant) */
+      --color-text-primary: #FFFFFF;
+      --color-text-secondary: #CBD5E1;
+      --color-text-muted: #94A3B8;
+
+      /* Borders & Shadows */
+      --color-border-subtle: #211E2F;
+      --color-border-accent: #3B2F5C;
+      --color-border-glow: #8B3DFF;
+
+      --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.4);
+      --shadow-elevated: 0 20px 30px -5px rgba(0, 0, 0, 0.6);
+      --shadow-glow-purple: 0 0 25px rgba(139, 61, 255, 0.4);
+      --shadow-glow-orange: 0 0 25px rgba(245, 158, 11, 0.35);
+
+      /* Typography Tokens */
+      --font-display: 'Outfit', sans-serif;
+      --font-body: 'Inter', system-ui, sans-serif;
+
+      /* Spacing Scale */
+      --space-2xs: 0.25rem;
+      --space-xs: 0.5rem;
+      --space-sm: 0.75rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2rem;
+      --space-2xl: 3rem;
+      --space-3xl: 4rem;
+      --space-section: clamp(4rem, 8vw, 6.5rem);
+
+      /* Layout */
+      --container-max: 75rem;
+      --container-narrow: 50rem;
+      --container-padding: clamp(1rem, 4vw, 2.5rem);
+
+      --radius-sm: 0.375rem;
+      --radius-md: 0.625rem;
+      --radius-lg: 1rem;
+      --radius-pill: 9999px;
+
+      --gradient-hero-glow: radial-gradient(circle at 70% 30%, rgba(139, 61, 255, 0.25) 0%, rgba(59, 130, 246, 0.1) 45%, rgba(9, 8, 15, 0) 75%);
+      --gradient-accent-banner: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+      --gradient-card-overlay: linear-gradient(180deg, rgba(18, 17, 26, 0) 30%, rgba(9, 8, 15, 0.95) 100%);
+      --bg-pattern-dots: radial-gradient(rgba(139, 61, 255, 0.12) 1px, transparent 1px) 0 0 / 24px 24px;
+    }
+
+    /* Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-bg-deep);
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+      font-size: 1rem;
+      overflow-x: hidden;
+    }
+
+    /* Container System */
+    .container {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding-left: var(--container-padding);
+      padding-right: var(--container-padding);
+    }
+
+    .container-narrow {
+      max-width: var(--container-narrow);
+      margin: 0 auto;
+      padding-left: var(--container-padding);
+      padding-right: var(--container-padding);
+    }
+
+    /* Typography Classes */
+    h1, .h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.25rem, 5vw + 0.5rem, 4rem);
+      line-height: 1.12;
+      font-weight: 800;
+      color: var(--color-text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    h2, .h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 3vw + 0.5rem, 2.5rem);
+      line-height: 1.2;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      letter-spacing: -0.015em;
+    }
+
+    h3, .h3 {
+      font-family: var(--font-display);
+      font-size: clamp(1.25rem, 2vw + 0.2rem, 1.6rem);
+      line-height: 1.3;
+      font-weight: 600;
+      color: var(--color-text-primary);
+    }
+
+    p {
+      color: var(--color-text-secondary);
+      font-size: clamp(1rem, 1vw + 0.5rem, 1.1rem);
+    }
+
+    .eyebrow-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      background: rgba(139, 61, 255, 0.12);
+      border: 1px solid rgba(139, 61, 255, 0.35);
+      color: #D8B4FE;
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-pill);
+      margin-bottom: var(--space-md);
+    }
+
+    /* Buttons (Touch target >= 44px) */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      min-height: 48px;
+      padding: 0.8rem 1.8rem;
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: var(--radius-pill);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--color-secondary);
+      color: var(--color-bg-deep);
+      box-shadow: var(--shadow-subtle);
+    }
+    .btn-primary:hover {
+      background: var(--color-secondary-hover);
+      box-shadow: var(--shadow-glow-orange);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--color-text-primary);
+      border: 1px solid var(--color-border-accent);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--color-primary-light);
+      color: var(--color-text-primary);
+      transform: translateY(-2px);
+    }
+
+    .btn-whatsapp {
+      background: #25D366;
+      color: #000000;
+    }
+    .btn-whatsapp:hover {
+      background: #1EBE5D;
+      box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
+      transform: translateY(-2px);
+    }
+
+    /* Header Nav (Glassmorphism) */
+    header.site-header {
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      background: rgba(9, 8, 15, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--color-border-subtle);
+      padding: 1rem 0;
+    }
+
+    .header-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-logo {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--color-text-primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .brand-logo .logo-icon {
+      background: var(--color-primary);
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 1.8rem;
+      list-style: none;
+    }
+
+    .nav-menu a {
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-menu a:hover {
+      color: var(--color-text-primary);
+    }
+
+    /* Mobile Menu Toggle (Hamburger) */
+    .mobile-menu-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--color-border-accent);
+      color: white;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Section Spacing */
+    section {
+      padding-top: calc(var(--space-section) / 1.5);
+      padding-bottom: calc(var(--space-section) / 1.5);
+      position: relative;
+    }
+
+    /* HERO SECTION (Assímétrica & Overlap) */
+    .hero {
+      background-image: var(--gradient-hero-glow), var(--bg-pattern-dots);
+      padding-top: calc(var(--space-section) * 1.2);
+      padding-bottom: calc(var(--space-section) * 1.2);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    @media (min-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1.1fr 0.9fr;
+      }
+    }
+
+    .hero-content h1 {
+      margin-bottom: var(--space-md);
+    }
+
+    .hero-content .subtitle {
+      margin-bottom: var(--space-xl);
+      max-width: 580px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+    }
+    @media (min-width: 640px) {
+      .hero-actions {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+
+    .trust-rating {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+    }
+
+    .trust-stars {
+      color: var(--color-secondary);
+      font-weight: bold;
+    }
+
+    /* Hero Visual Layering (Awwwards Style Overlap) */
+    .hero-visual-wrap {
+      position: relative;
+      width: 100%;
+    }
+
+    .hero-picture-frame {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--color-border-accent);
+      box-shadow: var(--shadow-elevated), var(--shadow-glow-purple);
+      background: var(--color-bg-surface);
+    }
+
+    .hero-picture-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* Floating Card Badge 1 (Overlap Top Left) */
+    .hero-floating-badge {
+      position: absolute;
+      top: -15px;
+      left: -15px;
+      background: rgba(18, 17, 26, 0.9);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--color-border-glow);
+      padding: 0.8rem 1.2rem;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-elevated);
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    @media (max-width: 640px) {
+      .hero-floating-badge {
+        top: 10px;
+        left: 10px;
+      }
+    }
+
+    .floating-icon {
+      background: var(--color-primary);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    /* PROBLEM SECTION (Quebra de Grid & Overlap) */
+    .problem-section {
+      background: var(--color-bg-surface);
+      border-top: 1px solid var(--color-border-subtle);
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    @media (min-width: 1024px) {
+      .problem-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .problem-card-text {
+      background: var(--color-bg-deep);
+      border: 1px solid var(--color-border-accent);
+      border-radius: var(--radius-lg);
+      padding: clamp(1.5rem, 4vw, 3rem);
+      box-shadow: var(--shadow-elevated);
+    }
+
+    .problem-card-text h2 {
+      margin-bottom: var(--space-md);
+    }
+
+    .problem-card-text p {
+      margin-bottom: 1rem;
+    }
+
+    .problem-visual-wrap {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--color-border-accent);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .problem-visual-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* SOLUTION SECTION (Vitrines 3D) */
+    .solution-section {
+      background: var(--color-bg-deep);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 3.5rem auto;
+    }
+
+    .section-header h2 {
+      margin-bottom: 0.6rem;
+    }
+
+    .cards-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-bottom: 3.5rem;
+    }
+    @media (min-width: 768px) {
+      .cards-grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (min-width: 1024px) {
+      .cards-grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .product-card {
+      background: var(--color-bg-surface);
+      border: 1px solid var(--color-border-accent);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--color-border-glow);
+      box-shadow: var(--shadow-glow-purple);
+    }
+
+    .product-card-img-wrap {
+      position: relative;
+      height: 240px;
+      overflow: hidden;
+    }
+
+    .product-card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease, filter 0.4s ease;
+    }
+
+    .product-card:hover .product-card-img-wrap img {
+      transform: scale(1.05);
+      filter: brightness(1.08) saturate(1.1);
+    }
+
+    .card-badge-top {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: var(--color-primary);
+      color: white;
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .product-card-content {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .product-card-content h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    .product-card-content p {
+      font-size: 0.92rem;
+      margin-bottom: 1.5rem;
+      flex: 1;
+    }
+
+    .product-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--color-border-subtle);
+      padding-top: 1rem;
+      margin-top: auto;
+    }
+
+    /* PROCESS SECTION (3 Passos) */
+    .process-section {
+      background: var(--color-bg-surface);
+      border-top: 1px solid var(--color-border-subtle);
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .steps-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    @media (min-width: 768px) {
+      .steps-grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .step-card-box {
+      background: var(--color-bg-deep);
+      border: 1px solid var(--color-border-accent);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      position: relative;
+    }
+
+    .step-icon-bubble {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(139, 61, 255, 0.15);
+      border: 1px solid var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+      color: #D8B4FE;
+    }
+
+    .step-tag-num {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--color-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.4rem;
+    }
+
+    /* SOCIAL PROOF & STORY SECTION */
+    .story-section {
+      background: var(--color-bg-deep);
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+    @media (min-width: 1024px) {
+      .story-grid {
+        grid-template-columns: 0.9fr 1.1fr;
+      }
+    }
+
+    .story-image-frame {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--color-border-accent);
+      box-shadow: var(--shadow-elevated), var(--shadow-glow-purple);
+    }
+
+    .story-image-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .story-testimonial-overlay {
+      position: absolute;
+      bottom: 15px;
+      left: 15px;
+      right: 15px;
+      background: rgba(18, 17, 26, 0.92);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--color-border-accent);
+      padding: 1.2rem;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .quote-text {
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--color-text-primary);
+      margin-bottom: 0.3rem;
+    }
+
+    .quote-author {
+      font-size: 0.78rem;
+      color: var(--color-secondary);
+      font-weight: 600;
+    }
+
+    .story-content-box h2 {
+      margin-bottom: 1.2rem;
+    }
+
+    .story-content-box p {
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+    }
+
+    .story-signature {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--color-text-primary);
+      margin-top: 1.5rem;
+    }
+
+    /* FAQ SECTION (Acordeão CSS) */
+    .faq-section {
+      background: var(--color-bg-surface);
+      border-top: 1px solid var(--color-border-subtle);
+    }
+
+    .faq-accordion-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    details.faq-item-details {
+      background: var(--color-bg-deep);
+      border: 1px solid var(--color-border-accent);
+      border-radius: var(--radius-md);
+      padding: 1.2rem 1.5rem;
+      transition: border-color 0.25s ease;
+    }
+
+    details.faq-item-details[open] {
+      border-color: var(--color-primary-light);
+    }
+
+    summary.faq-summary {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--color-text-primary);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    summary.faq-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary.faq-summary::after {
+      content: '+';
+      font-size: 1.4rem;
+      color: var(--color-primary-light);
+      transition: transform 0.2s ease;
+    }
+
+    details[open] summary.faq-summary::after {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer-body {
+      margin-top: 0.8rem;
+      padding-top: 0.8rem;
+      border-top: 1px dashed var(--color-border-subtle);
+      color: var(--color-text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* FOOTER CTA SECTION (Banner Laranja/Dourado) */
+    .footer-cta-section {
+      background: var(--gradient-hero-glow);
+    }
+
+    .footer-cta-card {
+      background: var(--gradient-accent-banner);
+      border-radius: var(--radius-lg);
+      padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.5rem, 4vw, 3rem);
+      text-align: center;
+      color: #000000;
+      box-shadow: var(--shadow-glow-orange);
+    }
+
+    .footer-cta-card h2 {
+      color: #000000;
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-cta-card p {
+      color: #1A1A1A;
+      font-weight: 500;
+      margin-bottom: 2rem;
+    }
+
+    .footer-cta-card .btn-dark-cta {
+      background: #000000;
+      color: #FFFFFF;
+      box-shadow: var(--shadow-elevated);
+    }
+    .footer-cta-card .btn-dark-cta:hover {
+      background: #1F1F1F;
+      transform: translateY(-2px);
+    }
+
+    /* FOOTER */
+    footer.site-footer {
+      background: #06050A;
+      border-top: 1px solid var(--color-border-subtle);
+      padding: 3rem 0;
+      text-align: center;
+    }
+
+    .footer-badges-row {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Responsive Adjustments & Hamburger Overlay */
+    @media (max-width: 767px) {
+      .nav-menu {
+        display: none; /* Controlled via CSS toggle or script */
+      }
+      .mobile-menu-toggle {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       HEADER & NAVEGAÇÃO STICKY
+       ========================================================================== -->
+  <header class="site-header">
+    <div class="container header-flex">
+      <a href="#" class="brand-logo">
+        <span class="logo-icon">🐾</span>
+        <span>Ateliê do Mauricinho 3D</span>
+      </a>
+
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="#problema">O Problema</a></li>
+          <li><a href="#solucao">Criações</a></li>
+          <li><a href="#processo">Como Funciona</a></li>
+          <li><a href="#quem-somos">Quem Somos</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </nav>
+
+      <div style="display: flex; align-items: center; gap: 1rem;">
+        <a href="https://wa.me/5545999999999?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20fazer%20um%20orçamento" 
+           class="btn btn-primary" style="min-height: 42px; padding: 0.5rem 1.2rem; font-size: 0.88rem;">
+          <span>Falar no WhatsApp</span>
+        </a>
+        
+        <button class="mobile-menu-toggle" aria-label="Abrir Menu" onclick="document.querySelector('.nav-menu').style.display = document.querySelector('.nav-menu').style.display === 'flex' ? 'none' : 'flex'">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==========================================================================
+         SEÇÃO 1: HERO (IMPACTO & AÇÃO DIRETA)
+         ========================================================================== -->
+    <section class="hero" id="hero">
+      <div class="container">
+        <div class="hero-grid">
+          
+          <!-- Conteúdo Principal -->
+          <div class="hero-content">
+            <span class="eyebrow-badge">
+              📍 Feito com carinho no Oeste do Paraná
+            </span>
+            
+            <h1>Eternize seu melhor amigo em 3D.</h1>
+            
+            <p class="subtitle">
+              Transformamos a foto do seu pet ou a sua ideia mais criativa em uma lembrança real e única para decorar seu lar.
+            </p>
+            
+            <div class="hero-actions">
+              <a href="https://wa.me/5545999999999?text=Olá!%20Gostaria%20de%20eternizar%20meu%20pet%20em%203D" class="btn btn-primary btn-whatsapp">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+                <span>Quero eternizar meu pet no WhatsApp</span>
+              </a>
+            </div>
+
+            <div class="trust-rating">
+              <span class="trust-stars">★★★★★ 5.0</span>
+              <span>Atendimento humano e sem compromisso. Respondemos rápido.</span>
+            </div>
+          </div>
+
+          <!-- Visual Layering Overlap -->
+          <div class="hero-visual-wrap">
+            <div class="hero-floating-badge">
+              <div class="floating-icon">🐾</div>
+              <div>
+                <div style="font-size: 0.8rem; font-weight: 700; color: white;">Edição Especial Linha Pet</div>
+                <div style="font-size: 0.72rem; color: #CBD5E1;">Modelado 100% sob foto real</div>
+              </div>
+            </div>
+
+            <div class="hero-picture-frame">
+              <picture>
+                <source srcset="./imagens/hero-mauricinho-gato-real-escultura-3d.avif" type="image/avif">
+                <source srcset="./imagens/hero-mauricinho-gato-real-escultura-3d.webp" type="image/webp">
+                <img src="./imagens/hero-mauricinho-gato-real-escultura-3d.png" 
+                     alt="Gato Mauricinho real sentado ao lado da sua escultura 3D impressa" 
+                     width="1200" height="800"
+                     loading="eager" fetchpriority="high" decoding="sync">
+              </picture>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SEÇÃO 2: O PROBLEMA (A DOR DA LEMBRANÇA FRIA)
+         ========================================================================== -->
+    <section class="problem-section" id="problema">
+      <div class="container">
+        <div class="problem-grid">
+          
+          <div class="problem-card-text">
+            <span class="eyebrow-badge">A busca pelo presente perfeito</span>
+            <h2>Por que presentes comuns parecem tão sem graça?</h2>
+            <p>
+              Lojas de departamento estão cheias de objetos iguais, que não contam história nenhuma. E quando você quer guardar a memória do seu pet ou dar um presente que realmente emocione alguém, as opções parecem frias e distantes.
+            </p>
+            <p>
+              Você merece algo que tenha a carinha de quem você ama. Algo que faça você olhar para a estante e dar um sorriso imediato.
+            </p>
+          </div>
+
+          <div class="problem-visual-wrap">
+            <picture>
+              <source srcset="./imagens/comparativo-presente-comum-vs-homenagem-3d.avif" type="image/avif">
+              <source srcset="./imagens/comparativo-presente-comum-vs-homenagem-3d.webp" type="image/webp">
+              <img src="./imagens/comparativo-presente-comum-vs-homenagem-3d.png" 
+                   alt="Infográfico comparativo: objeto genérico sem graça vs. escultura pet 3D cheia de afeto" 
+                   width="800" height="400"
+                   loading="lazy" decoding="async">
+            </picture>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SEÇÃO 3: A SOLUÇÃO (NOSSAS CRIAÇÕES AFETUOSAS)
+         ========================================================================== -->
+    <section class="solution-section" id="solucao">
+      <div class="container">
+        
+        <div class="section-header">
+          <span class="eyebrow-badge">Catálogo & Criações</span>
+          <h2>Ideias que ganham vida e viram afeto</h2>
+          <p>Combinamos tecnologia e sensibilidade para criar peças que contam histórias.</p>
+        </div>
+
+        <div class="cards-grid-3">
+          
+          <!-- Card 1 -->
+          <article class="product-card">
+            <div class="product-card-img-wrap">
+              <span class="card-badge-top">Mais Pedido</span>
+              <picture>
+                <source srcset="./imagens/card-linha-pet-chaveiro-patinha-3d.avif" type="image/avif">
+                <source srcset="./imagens/card-linha-pet-chaveiro-patinha-3d.webp" type="image/webp">
+                <img src="./imagens/card-linha-pet-chaveiro-patinha-3d.png" 
+                     alt="Chaveiro 3D personalizado em formato de patinha de gato" 
+                     width="600" height="400"
+                     loading="lazy" decoding="async">
+              </picture>
+            </div>
+            <div class="product-card-content">
+              <h3>Linha Pet Memorável</h3>
+              <p>Esculturas personalizadas, plaquinhas de homenagem e chaveiros idênticos ao seu companheiro de quatro patas.</p>
+              <div class="product-card-footer">
+                <span style="color: var(--color-secondary);">★★★★★ (5.0)</span>
+                <a href="https://wa.me/5545999999999?text=Quero%20orçamento%20da%20Linha%20Pet%20Memorável" class="btn btn-secondary" style="padding: 0.4rem 0.9rem; font-size: 0.8rem; min-height: 38px;">
+                  Pedir no WhatsApp
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="product-card">
+            <div class="product-card-img-wrap">
+              <span class="card-badge-top" style="background: var(--color-secondary); color: black;">Exclusivo</span>
+              <picture>
+                <source srcset="./imagens/card-decoracao-vaso-geometrico-gato-3d.avif" type="image/avif">
+                <source srcset="./imagens/card-decoracao-vaso-geometrico-gato-3d.webp" type="image/webp">
+                <img src="./imagens/card-decoracao-vaso-geometrico-gato-3d.png" 
+                     alt="Vaso geométrico 3D em formato de gato decorativo" 
+                     width="600" height="400"
+                     loading="lazy" decoding="async">
+              </picture>
+            </div>
+            <div class="product-card-content">
+              <h3>Decoração Criativa</h3>
+              <p>Luminárias personalizadas, vasos geométricos e peças exclusivas para dar vida ao seu cantinho.</p>
+              <div class="product-card-footer">
+                <span style="color: var(--color-secondary);">★★★★★ (5.0)</span>
+                <a href="https://wa.me/5545999999999?text=Quero%20orçamento%20de%20Decoração%20Criativa" class="btn btn-secondary" style="padding: 0.4rem 0.9rem; font-size: 0.8rem; min-height: 38px;">
+                  Pedir no WhatsApp
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article class="product-card">
+            <div class="product-card-img-wrap">
+              <span class="card-badge-top">Artesanal</span>
+              <picture>
+                <source srcset="./imagens/card-utilidades-cortadores-biscoito-patinha-3d.avif" type="image/avif">
+                <source srcset="./imagens/card-utilidades-cortadores-biscoito-patinha-3d.webp" type="image/webp">
+                <img src="./imagens/card-utilidades-cortadores-biscoito-patinha-3d.png" 
+                     alt="Cortadores de biscoito 3D em formato de patinha de gato" 
+                     width="600" height="400"
+                     loading="lazy" decoding="async">
+              </picture>
+            </div>
+            <div class="product-card-content">
+              <h3>Cortadores & Utilidades</h3>
+              <p>Cortadores de biscoito sob medida (inclusive com formato de patinhas!) e organizadores funcionais.</p>
+              <div class="product-card-footer">
+                <span style="color: var(--color-secondary);">★★★★★ (5.0)</span>
+                <a href="https://wa.me/5545999999999?text=Quero%20orçamento%20de%20Cortadores%203D" class="btn btn-secondary" style="padding: 0.4rem 0.9rem; font-size: 0.8rem; min-height: 38px;">
+                  Pedir no WhatsApp
+                </a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <div style="text-align: center;">
+          <a href="https://wa.me/5545999999999?text=Quero%20ver%20fotos%20das%20peças%20personalizadas" class="btn btn-secondary">
+            <span>Ver fotos das peças no WhatsApp</span>
+          </a>
+          <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-top: 0.8rem;">
+            <em>Clique para ver exemplos reais criados pelo Mauricinho.</em>
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SEÇÃO 4: O PROCESSO (COMO FUNCIONA)
+         ========================================================================== -->
+    <section class="process-section" id="processo">
+      <div class="container">
+        
+        <div class="section-header">
+          <span class="eyebrow-badge">Passo a Passo</span>
+          <h2>Você imagina, o Mauricinho imprime.</h2>
+          <p>Sem termos técnicos complicados. Você participa de cada etapa em 3 passos simples:</p>
+        </div>
+
+        <div class="steps-grid-3">
+          
+          <div class="step-card-box">
+            <div class="step-icon-bubble">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            </div>
+            <div class="step-tag-num">PASSO 01</div>
+            <h3>1. Compartilhe a Ideia</h3>
+            <p>Envie a foto do seu pet ou explique sua ideia pelo WhatsApp. Nós ajudamos a escolher o melhor modelo.</p>
+          </div>
+
+          <div class="step-card-box">
+            <div class="step-icon-bubble">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+            </div>
+            <div class="step-tag-num">PASSO 02</div>
+            <h3>2. Modelagem & Produção</h3>
+            <p>Ajustamos o design com carinho e colocamos nossas impressoras 3D para trabalhar.</p>
+          </div>
+
+          <div class="step-card-box">
+            <div class="step-icon-bubble">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+            </div>
+            <div class="step-tag-num">PASSO 03</div>
+            <h3>3. Entrega no Paraná</h3>
+            <p>Embalamos com cuidado e enviamos para Cascavel e região. Você recebe um pedacinho de amor em mãos.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SEÇÃO 5: PROVA SOCIAL & QUEM SOMOS
+         ========================================================================== -->
+    <section class="story-section" id="quem-somos">
+      <div class="container">
+        <div class="story-grid">
+          
+          <div class="story-image-frame">
+            <picture>
+              <source srcset="./imagens/quem-somos-chefe-gato.avif" type="image/avif">
+              <source srcset="./imagens/quem-somos-chefe-gato.webp" type="image/webp">
+              <img src="./imagens/quem-somos-chefe-gato.png" 
+                   alt="Fran e Alice no ateliê 3D segurando o gatinho Mauricinho" 
+                   width="500" height="500"
+                   loading="lazy" decoding="async">
+            </picture>
+
+            <div class="story-testimonial-overlay">
+              <p class="quote-text">"Fiquei emocionada quando vi a plaquinha do meu Bob! É uma lembrança eterna do meu anjinho."</p>
+              <div class="quote-author">— Depoimento de cliente de Cascavel/PR</div>
+            </div>
+          </div>
+
+          <div class="story-content-box">
+            <span class="eyebrow-badge">Quem Faz Acontecer</span>
+            <h2>O coração por trás de cada filamento</h2>
+            <p>
+              O Ateliê do Mauricinho nasceu da nossa paixão (Fran e Alice) por transformar saudades em presença e ideias em realidade. Inspiradas pelo nosso gatinho Mauricinho, criamos peças que tocam o coração de quem recebe.
+            </p>
+            <p>
+              Não imprimimos apenas plástico; materializamos amor, cuidado e momentos especiais que duram para sempre.
+            </p>
+            
+            <div class="story-signature">
+              Fran, Alice & Mauricinho 🐾
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SEÇÃO 6: FAQ (DÚVIDAS FREQUENTES)
+         ========================================================================== -->
+    <section class="faq-section" id="faq">
+      <div class="container-narrow">
+        
+        <div class="section-header">
+          <span class="eyebrow-badge">Dúvidas Frequentes</span>
+          <h2>Perguntas de quem quer começar</h2>
+          <p>Tire suas dúvidas antes de fazer seu primeiro pedido:</p>
+        </div>
+
+        <div class="faq-accordion-list">
+          
+          <details class="faq-item-details" open>
+            <summary class="faq-summary">Qual material é utilizado nas impressões?</summary>
+            <div class="faq-answer-body">
+              Utilizamos principalmente o PLA, um plástico biodegradável feito a partir de fontes renováveis (como amido de milho). Ele é totalmente seguro para ter em casa e super resistente.
+            </div>
+          </details>
+
+          <details class="faq-item-details">
+            <summary class="faq-summary">Como funciona a entrega em Cascavel e região?</summary>
+            <div class="faq-answer-body">
+              Entregamos pessoalmente ou via motoboy em Cascavel. Para outras cidades do Oeste do Paraná, enviamos de forma rápida e segura com embalagens super protegidas.
+            </div>
+          </details>
+
+          <details class="faq-item-details">
+            <summary class="faq-summary">Preciso ter o arquivo 3D pronto para fazer o pedido?</summary>
+            <div class="faq-answer-body">
+              Não! Apenas uma foto nítida do seu pet ou uma descrição da sua ideia é suficiente. Nós cuidamos de toda a preparação e modelagem para você.
+            </div>
+          </details>
+
+          <details class="faq-item-details">
+            <summary class="faq-summary">Qual o tempo de produção de uma peça personalizada?</summary>
+            <div class="faq-answer-body">
+              O tempo médio varia de 3 a 7 dias úteis, dependendo do tamanho e detalhamento da peça. Avisamos o prazo exato logo no início do contato.
+            </div>
+          </details>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SEÇÃO 7: CTA FINAL (FECHAMENTO DE LEAD)
+         ========================================================================== -->
+    <section class="footer-cta-section" id="cta-final">
+      <div class="container-narrow">
+        <div class="footer-cta-card">
+          <h2>Transforme seu afeto em algo físico hoje.</h2>
+          <p>Mande uma mensagem para nós. Vamos planejar o presente perfeito juntos, sem burocracia.</p>
+          
+          <a href="https://wa.me/5545999999999?text=Olá!%20Vim%20pelo%20site%20e%20quero%20fazer%20meu%20pedido" class="btn btn-dark-cta">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+            <span>Falar com o Mauricinho e fazer meu pedido</span>
+          </a>
+
+          <p style="font-size: 0.85rem; margin-top: 1rem; color: #333;">
+            <em>Clique para abrir o WhatsApp. Atendimento humanizado e acolhedor.</em>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       RODAPÉ (FOOTER)
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-badges-row">
+        <span class="eyebrow-badge" style="margin: 0;">🌱 Plástico Ecológico (Biodegradável)</span>
+        <span class="eyebrow-badge" style="margin: 0;">📍 Atendimento em Cascavel e Oeste do Paraná</span>
+      </div>
+      
+      <p style="margin-bottom: 0.8rem; font-weight: 500;">
+        Desenvolvido com carinho para todos os pais e mães de pet do Paraná.
+      </p>
+      
+      <p style="font-size: 0.85rem; color: var(--color-text-muted);">
+        © 2026 Ateliê do Mauricinho 3D — Siga no Instagram/TikTok: <strong>@mauricinhoogatomaluquinho</strong>
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
